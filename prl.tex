@@ -1,38 +1,115 @@
-\documentclass[letterpaper,10pt,prl,twocolumn,aps]{revtex4-1}
+\documentclass[letterpaper,10pt,prl,twocolumn,aps,reprint]{revtex4-1}
 \usepackage{fullpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{slashbox}
+% \usepackage{slashbox}
 \usepackage{color}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{dashrule}
 
-
-
+\newcommand{\comment}[1]{{\textbf{#1}}}
+\newcommand{\cotwo}{CO$_2$ }
+\newcommand{\COtwo}[1]{CO$_2$ }
+\newcommand{\erf}{\text{erf}}
+\newcommand{\bu}{\boldsymbol{u}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bz}{\hat{\boldsymbol{z}}}
+\newcommand{\grad}{\boldsymbol{\nabla}}
+\newcommand{\cL}{\boldsymbol{\mathcal{L}}}
+\newcommand{\cA}{\boldsymbol{\mathcal{A}}}
 \begin{document}
 
-\title{Linear stability for transient base flows}
+\title{A systematic method for the linear stability of an unsteady flow}
 \author{Shreyas Mandre}
 \affiliation{Brown University, Providence RI 02912 USA}
 \author{Anja Slim}
 \affiliation{Schlumberger-Doll Research Center, Cambridge MA 021?? USA}
 \begin{abstract}
-(i) We look at solutal convection as a prototypical problem for linear stability of transient base states. (ii) We derive a formulation to determine the amplification of the most dangerous perturbation indced by the slowest growing norm. (ii) This framework reduces to various classical and modern formulations of stability in special limits. (iv) We provide rigorous justification for the frozen cefficient analysis to determine the threshold time for the onset of instability.
+We look at solutal convection as a prototypical problem for linear stability of transient base states. We derive a formulation to determine the amplification of the most dangerous perturbation induced by the slowest growing norm. This formulation reduces to various classical and modern formulations of stability in special cases. We find that the threshold time for the growth of at least one perturbation in {\em every} norm (the onset of instability) agrees exactly with threshold found using frozen coefficient analysis. This formulation provides a rigorous justification for the frozen coefficient analysis to determine this threshold time.
 \end{abstract}
 \maketitle
-The study of solutal convection is motivated by carbon dioxide sequestration in deep underground aquifers\cite{SlimRama10}. In this problem, convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. A common method used for determining the threshold time for the onset of convection is the frozen coefficient analysis. It is thought that this analysis requires the base state to change with time much slower than the perturbations grow (or decay), and therefore the analysis is invalid at the threshold of onset (because the perturbations neither grow nor decay). We present an alternative method for the stability analysis based on the growth of positivie definite norms quantifying the size of the perturbations. To address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to find the norm which leads to least possible amplification. Using this modification, we show rigorously that a separation of time-scales is not require for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability. We demonstrate these for a special case of the onset of solutal convection in porous medium. (A few words about the utility of this method is other problems.)
+% Background
+The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
 
-Mathematical model for solutal convection
+% The problem with the state of the art
+Linear stability analysis of such base flows is commonly performed by freezing the time-dependence of the base state, and examining the growth of perturbation around it using classical modal theories. This method, called the frozen coefficient analysis (a.k.a. quasi-steady analysis), is claimed to assume the base flow to evolve much slower than the growing perturbation. Therefore, the application of frozen coefficient analysis to determine the threshold of instability is considered inconsistent and met with skepticism because at the threshold the perturbations neither grow nor decay. While this discrepancy is widely acknowledged, the absence of an alternative formulation makes it difficult to evaluate the validity of the frozen coefficient analysis. The results from alternative methods based on quantifying the growth of a norm (e.g. L$_2$ norm) characterizing the size of the perturbation\cite{SlimRama10}, themselves depend sensitively on the choice of the norm, and are thus unable to resolve the inconsistency.
 
+% Our resolution of the problem
+In this letter, to address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to consider the slowest growing norm. We find that this modification is equivalent to the classical modal analysis for steady base flows, Floquet analysis for time-periodic base flows, and the frozen coefficient analysis for characterizing the amplification of a perturbation for a short time since its inception.  Using this modification, we show rigorously that a separation of time-scales is not required for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability. We demonstrate this result for a special case of the onset of solutal convection in porous medium.
+
+\begin{figure}[b]
+\vspace{5cm}
+\caption{Schematic representation of the mathematical model.}
+\label{fig:Schematic}
+\end{figure}
+
+% Mathematical model for solutal convection
+Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. The \cotwo concentration in the diffuse layer (scaled by the saturation concentration) is given by $C_0(z,t) = 1 + \erf( {z}/{2\sqrt{t}})$, where $z$ is the vertical coordinate, while the concentration in the \cotwo layer remains saturated and the fluid remains static. Perturbations about this state are governed by 
+\begin{align}
+ c_t + w C_{0,z} = \nabla^2 c \text{ and }
+ \bu + \grad p + c\bz = 0
+\end{align}
+for $z<0$ and 
+\begin{align}
+ c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
+\end{align}
+for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. We refer the reader elsewhere\cite{SlimRama10} for details. 
+
+Formally, the linearization of governing equations for the dynamics of the perturbation $\bu$ about a transient base state leads to a non-autonomous system, written as ${d\bu}/{dt} = \cL(t)\bu$, where $\cL$ is the linearized operator. The system may be formally integrated $\bu (t_2) = \cA(t_2, t_1) \bu(t_1)$, where $\cA(t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
+\begin{align}
+a(t_2, t_1) = \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|}, \label{eqn:amp1}
+\end{align}
+gives the amplification of a particular vector norm $|\cdot|$ induced by the dynamics on the most dangerous perturbation. The time dependence of $C_0$ renders the perturbation dynamics not invariant under time-translation, and thus the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs must be considered. By choosing a suitable vector norm the amplification may be made arbitrarily large (see supplementary material?). To ameliorate the dependence of amplification on the choice of the vector norm, we nest the optimization to find the vector norm which results in the least amplification as
+\begin{align}
+a_*(t_2, t_1) = \min_{|\cdot|} \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|} = \min_{|\cdot|} a(t_2, t_1). \label{eqn:amp2}
+\end{align}
+
+The solution of this optimization is possible owing to two theorems from finite-dimensional linear algebra and yields the optimum to be the spectral radius $\rho(\cA)$ of $\cA$. The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$. 
+
+\vspace{1cm}
 Brief rationale and description of the method, and comparison with existing methods.
 
 Criteria for threshold and equivalence with frozen coefficient
 
 Results from computations showing agreement, and teaser for future paper.
 
-\bibliography{timevariant}
+(modal ansatz cannot be made)
+
+\bibliography{timevariant,others}
 % \bibliographystyle{}
+
+\newpage
+\section*{Supplementary material}
+As an illustration, consider the case where the propagator is represented by a $2\times 2$ diagonal matrix,
+\begin{align}
+ \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+ \to
+K \begin{bmatrix} 1 & 0 \\ 0 & 5 \end{bmatrix}
+ \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}.
+ \label{eqn:exoperator}
+\end{align}
+Clearly, if the 2-norm $|x| = \sqrt{x_1^2 +x_2^2}$ is used, the amplification induced by this matrix is $5K$, corresponding to the stretching in the $x_2$ direction. Choosing the scaling factor $K$ allows us to arbitrarily change this norm, and choosing $K<1/5$ causes the operator to be diminishing, rather than amplifying. Now consider the coordinate transformation
+\begin{align}
+ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}
+ =
+ \begin{bmatrix} (1+\epsilon) & -(1-\epsilon) \\ (1-\epsilon) & -(1+\epsilon) \end{bmatrix}
+ \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}.
+ \label{eqn:transform}
+\end{align}
+In the $(u_1, u_2)$ coordinates, the same abstract operator in \eqref{eqn:exoperator} is represented by the matrix
+\begin{align}
+ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}
+ \to \frac{K}{\epsilon}
+ \begin{bmatrix} -1+3\epsilon-\epsilon^2 & 1-\epsilon^2 \\ -1+\epsilon^2 & 1+3\epsilon+\epsilon^2 \end{bmatrix}
+ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}
+\end{align}
+Using $|u| = \sqrt{u_1^2 + u_2^2}$, the norm of this matrix diverges as $2K/\epsilon$ as $\epsilon$ approaches zero. Such a divergence is closely linked to the choice of the basis used to represent the vector space (as $\epsilon\to 0$, the eigenvectors are almost but not exactly parallel to each other in this representation, whereas the eigenvectors of the matrix in the first representation were orthogonal). Irrespective of $K$, choosing $\epsilon < 2K$ causes this norm to be greater than unity. 
+
+The equivalence between the choice of the basis for the vector space and the choice of the vector norm used in the definition of the operator norm, is also clearly visible in this illustration. The same result could be obtained by transforming the norm instead of the coordinates. If $|x| = \sqrt{u_1(x_1,x_2)^2 + u_2(x_1,x_2)^2}$, where $u_{1,2}(x_1, x_2)$ are given by \eqref{eqn:transform}. The growth induced on this norm will approach $2K/\epsilon$. Similarly, using the vector norm $|u| = \sqrt{x_1^2(u_1,u_2)+x_2^2(u_1,u_2)}$ is equivalent to transforming back to the $(x_1, x_2)$ coordinates and using the $L_2$-norm in $(x_1, x_2)$, and thus will result in the operator norm equal to $5K$. This behavior of the amplification induced by the operator extends to all other vector norms, although we have demonstrated it using quadratic norms.
+
+This illustration highlights the following conundrum a theorist faces when using operator norms to study the amplification caused by a linear map. Suppose a large operator norm is observed while performing a stability analysis of a dynamical system, how much of this operator norm is an inherent property of the underlying abstract linear operator and how much is due to the choice of a basis used to represent the dynamical system? Note that, as illustrated in the above example, the spurious artifact from a bad choice of the basis is especially exaggerated when the eigenvectors are nearly parallel, as is the case for many non-normal representations of linear operators.
+
 \end{document}
