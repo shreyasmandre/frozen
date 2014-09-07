@@ -1,4 +1,4 @@
-\documentclass[letterpaper,10pt,prl,twocolumn,aps,reprint]{revtex4-1}
+\documentclass[letterpaper,10pt,prl,twocolumn,aps,reprint,superscriptaddress]{revtex4-1}
 \usepackage{fullpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -28,17 +28,31 @@
 \author{Anja Slim}
 \affiliation{Schlumberger-Doll Research Center, Cambridge MA 021?? USA}
 \begin{abstract}
-We look at solutal convection as a prototypical problem for linear stability of transient base states. We derive a formulation to determine the amplification of the most dangerous perturbation induced by the slowest growing norm. This formulation reduces to various classical and modern formulations of stability in special cases. We find that the threshold time for the growth of at least one perturbation in {\em every} norm (the onset of instability) agrees exactly with threshold found using frozen coefficient analysis. This formulation provides a rigorous justification for the frozen coefficient analysis to determine this threshold time.
+We look at solutal convection as a prototypical problem for linear stability of transient base states. 
+We derive a formulation to determine the amplification of the most dangerous perturbation induced by the slowest growing norm. 
+This formulation reduces to various classical and modern formulations of stability in special cases. 
+We find that the threshold time for the growth of at least one perturbation in {\em every} norm (the onset of instability) agrees exactly with threshold found using frozen coefficient analysis. 
+This formulation provides a rigorous justification for the frozen coefficient analysis to determine this threshold time.
 \end{abstract}
 \maketitle
 % Background
-The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
+The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. 
+Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. 
+The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. 
+Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
 
 % The problem with the state of the art
-Linear stability analysis of such base flows is commonly performed by freezing the time-dependence of the base state, and examining the growth of perturbation around it using classical modal theories. This method, called the frozen coefficient analysis (a.k.a. quasi-steady analysis), is claimed to assume the base flow to evolve much slower than the growing perturbation. Therefore, the application of frozen coefficient analysis to determine the threshold of instability is considered inconsistent and met with skepticism because at the threshold the perturbations neither grow nor decay. While this discrepancy is widely acknowledged, the absence of an alternative formulation makes it difficult to evaluate the validity of the frozen coefficient analysis. The results from alternative methods based on quantifying the growth of a norm (e.g. L$_2$ norm) characterizing the size of the perturbation\cite{SlimRama10}, themselves depend sensitively on the choice of the norm, and are thus unable to resolve the inconsistency.
+Linear stability analysis of such base flows is commonly performed by freezing the time-dependence of the base state, and examining the growth of perturbation around it using classical modal theories. 
+This method, called the frozen coefficient analysis (a.k.a. quasi-steady analysis), is claimed to assume the base flow to evolve much slower than the growing perturbation. 
+Therefore, the application of frozen coefficient analysis to determine the threshold of instability is considered inconsistent and met with skepticism because at the threshold the perturbations neither grow nor decay. 
+While this discrepancy is widely acknowledged, the absence of an alternative formulation makes it difficult to evaluate the validity of the frozen coefficient analysis. 
+The results from alternative methods based on quantifying the growth of a norm (e.g. L$_2$ norm) characterizing the size of the perturbation\cite{SlimRama10}, themselves depend sensitively on the choice of the norm, and are thus unable to resolve the inconsistency.
 
 % Our resolution of the problem
-In this letter, to address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to consider the slowest growing norm. We find that this modification is equivalent to the classical modal analysis for steady base flows, Floquet analysis for time-periodic base flows, and the frozen coefficient analysis for characterizing the amplification of a perturbation for a short time since its inception.  Using this modification, we show rigorously that a separation of time-scales is not required for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability. We demonstrate this result for a special case of the onset of solutal convection in porous medium.
+In this letter, to address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to consider the slowest growing norm.
+We find that this modification is equivalent to the classical modal analysis for steady base flows, Floquet analysis for time-periodic base flows, and the frozen coefficient analysis for characterizing the amplification of a perturbation for a short time since its inception. 
+Using this modification, we show rigorously that a separation of time-scales is not required for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability.
+We demonstrate this result for a special case of the onset of solutal convection in porous medium.
 
 \begin{figure}[b]
 \vspace{5cm}
@@ -47,7 +61,12 @@ In this letter, to address the sensitive dependence of the stability results on 
 \end{figure}
 
 % Mathematical model for solutal convection
-Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. The \cotwo concentration in the diffuse layer (scaled by the saturation concentration) is given by $C_0(z,t) = 1 + \erf( {z}/{2\sqrt{t}})$, where $z$ is the vertical coordinate, while the concentration in the \cotwo layer remains saturated and the fluid remains static. Perturbations about this state are governed by 
+We begin by introducing the mathematical formulation of the \cotwo convection problem.
+Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
+We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. 
+At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. 
+The \cotwo concentration in the diffuse layer (scaled by the saturation concentration) is given by $C_0(z,t) = 1 + \erf( {z}/{2\sqrt{t}})$, where $z$ is the vertical coordinate, while the concentration in the \cotwo layer remains saturated and the fluid remains static. 
+Perturbations about this state are governed by 
 \begin{align}
  c_t + w C_{0,z} = \nabla^2 c \text{ and }
  \bu + \grad p + c\bz = 0
@@ -56,18 +75,25 @@ for $z<0$ and
 \begin{align}
  c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
 \end{align}
-for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. We refer the reader elsewhere\cite{SlimRama10} for details. 
+for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. 
+We refer the reader elsewhere\cite{SlimRama10} for details. 
 
-Formally, the linearization of governing equations for the dynamics of the perturbation $\bu$ about a transient base state leads to a non-autonomous system, written as ${d\bu}/{dt} = \cL(t)\bu$, where $\cL$ is the linearized operator. The system may be formally integrated $\bu (t_2) = \cA(t_2, t_1) \bu(t_1)$, where $\cA(t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
+Formally, the linearization of governing equations for the dynamics of the perturbation $\bu$ about a transient base state leads to a non-autonomous system, written as ${d\bu}/{dt} = \cL(t)\bu$, where $\cL$ is the linearized operator. 
+The system may be formally integrated $\bu (t_2) = \cA(t_2, t_1) \bu(t_1)$, where $\cA(t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
 \begin{align}
 a(t_2, t_1) = \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|}, \label{eqn:amp1}
 \end{align}
-gives the amplification of a particular vector norm $|\cdot|$ induced by the dynamics on the most dangerous perturbation. The time dependence of $C_0$ renders the perturbation dynamics not invariant under time-translation, and thus the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs must be considered. By choosing a suitable vector norm the amplification may be made arbitrarily large (see supplementary material?). To ameliorate the dependence of amplification on the choice of the vector norm, we nest the optimization to find the vector norm which results in the least amplification as
+gives the amplification of a particular vector norm $|\cdot|$ induced by the dynamics on the most dangerous perturbation. 
+The time dependence of $C_0$ renders the perturbation dynamics not invariant under time-translation, and thus the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs must be considered. 
+By choosing a suitable vector norm the amplification may be made arbitrarily large (see supplementary material?). 
+To ameliorate the dependence of amplification on the choice of the vector norm, we nest the optimization to find the vector norm which results in the least amplification as
 \begin{align}
 a_*(t_2, t_1) = \min_{|\cdot|} \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|} = \min_{|\cdot|} a(t_2, t_1). \label{eqn:amp2}
 \end{align}
 
-The solution of this optimization is possible owing to two theorems from finite-dimensional linear algebra and yields the optimum to be the spectral radius $\rho(\cA)$ of $\cA$. The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$. 
+The solution of this optimization is possible owing to two theorems from finite-dimensional linear algebra and yields the optimum to be the spectral radius $\rho(\cA)$ of $\cA$. 
+The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. 
+The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$. 
 
 \vspace{1cm}
 Brief rationale and description of the method, and comparison with existing methods.
