@@ -20,6 +20,8 @@
 \newcommand{\grad}{\boldsymbol{\nabla}}
 \newcommand{\cL}{\boldsymbol{\mathcal{L}}}
 \newcommand{\cA}{\boldsymbol{\mathcal{A}}}
+\newcommand{\cI}{\boldsymbol{\mathcal{I}}}
+
 \newcommand{\prt}{\boldsymbol{\xi}}
 \newcommand{\nrm}{|\cdot|}
 
@@ -102,10 +104,22 @@ Instability ensues when $a(t_2, t_1) > 1$.
 While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).
 
 Using the spectral radius for amplification agrees exactly with classical methods in the case of autonomous and time-periodic linear systems. 
-For autonomous systems, $\cA = \exp(\cL (t_2-t_1))$, and therefore $a(t_2,t_1) = \rho (\cA) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the eigenvalue of $\cL$ with the largest real part. Thus, $a(t_1,t_1)>1$ if and only if Re($\sigma$)$>0$, which is the classical criterion for linear instability.
-Similarly, for time-periodic systems with period $T$ restricted to $t_2 -t_1 = n T$, $a(t_2, t_1) = \rho (\cA ) = e^{n \beta T}$, where $\beta$ is the Floquet exponent with the largest real part. Again $a(t_2,t_1)>1$ implies Re($\beta$)$>0$, which is the classical criterion for instability of periodic systems using Floquet theory.
+For autonomous systems, $\cA = \exp(\cL (t_2-t_1))$, and therefore $a(t_2,t_1) = \rho (\cA) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the largest real part of the eigenvalue of $\cL$. 
+Thus, $a(t_1,t_1)>1$ if and only if Re($\sigma$)$>0$, which is the classical criterion for linear instability.
+Similarly, for time-periodic systems with period $T$ restricted to $t_2 -t_1 = n T$ for some integer $n$, $a(t_2, t_1) = \rho (\cA ) = e^{n \beta T}$, where $\beta$ is the Floquet exponent with the largest real part. 
+Again $a(t_2,t_1)>1$ implies Re($\beta$)$>0$, which is the classical criterion for instability of periodic systems using Floquet theory.
+
+Tacit assumption about the linear space spanned by the perturbations. Should it be added? Do I understand it enough to claim so in a publication?
+
+In this framework, the frozen coefficient analysis is considered applicable when $t_2 - t_1 \equiv \Delta t \ll 1$, and not in terms of a separation of timescales for the evolution of the perturbations compared to the background.
+To illustrate this concept, we expand the propagator for small $\Delta t$ as $\cA = \cI + \Delta t \cL + \frac{1}{2} \left(\cL^2 + d\cL/dt \right) \Delta t^2 + \dots$. 
+In this limit, $a(t_1 + \Delta t, t_1) = \rho(\cA) = 1 + \sigma(t_1) \Delta t + O(\Delta t^2)$, where $\sigma(t_1)$ is the largest real part of the eigenvalue of $\cL(t_1)$.
+The threshold of instability in this framework ($a(t_2,t_1) = 1$) implies and is implied by $\sigma(t_1) = 0$ to $O(\Delta t)$, which agrees with the threshold criterion used by the frozen coefficient analysis.
+This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for small $\Delta t$, it is elementary to prove that $da/dt < 0$ if $\sigma(t)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
+
 
 \vspace{1cm}
+
 Brief rationale and description of the method, and comparison with existing methods.
 
 Criteria for threshold and equivalence with frozen coefficient
