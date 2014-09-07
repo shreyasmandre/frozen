@@ -20,6 +20,9 @@
 \newcommand{\grad}{\boldsymbol{\nabla}}
 \newcommand{\cL}{\boldsymbol{\mathcal{L}}}
 \newcommand{\cA}{\boldsymbol{\mathcal{A}}}
+\newcommand{\prt}{\boldsymbol{\xi}}
+\newcommand{\nrm}{|\cdot|}
+
 \begin{document}
 
 \title{A systematic method for the linear stability of an unsteady flow}
@@ -71,29 +74,36 @@ Perturbations about this state are governed by
  c_t + w C_{0,z} = \nabla^2 c \text{ and }
  \bu + \grad p + c\bz = 0
 \end{align}
-for $z<0$ and 
+for $z<0$, and 
 \begin{align}
  c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
 \end{align}
 for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. 
 We refer the reader elsewhere\cite{SlimRama10} for details. 
 
-Formally, the linearization of governing equations for the dynamics of the perturbation $\bu$ about a transient base state leads to a non-autonomous system, written as ${d\bu}/{dt} = \cL(t)\bu$, where $\cL$ is the linearized operator. 
-The system may be formally integrated $\bu (t_2) = \cA(t_2, t_1) \bu(t_1)$, where $\cA(t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
+Formally, the linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
+The system may be formally integrated $\prt (t_2) = \cA(t_2, t_1) \prt (t_1)$, where $\cA (t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
 \begin{align}
-a(t_2, t_1) = \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|}, \label{eqn:amp1}
+a_\nrm(t_2, t_1) = \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|}, \label{eqn:amp1}
 \end{align}
 gives the amplification of a particular vector norm $|\cdot|$ induced by the dynamics on the most dangerous perturbation. 
-The time dependence of $C_0$ renders the perturbation dynamics not invariant under time-translation, and thus the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs must be considered. 
-By choosing a suitable vector norm the amplification may be made arbitrarily large (see supplementary material?). 
+Because of the time dependence of $\cL$, the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs $(t_1, t_2)$ must be considered. 
+By choosing a suitable vector norm the amplification may be made arbitrarily large, even for the most benign $\cA$ (see supplementary material?). 
 To ameliorate the dependence of amplification on the choice of the vector norm, we nest the optimization to find the vector norm which results in the least amplification as
 \begin{align}
-a_*(t_2, t_1) = \min_{|\cdot|} \max_{\bu} \frac{| \cA(t_2, t_1) \bu|}{|\bu|} = \min_{|\cdot|} a(t_2, t_1). \label{eqn:amp2}
+a(t_2, t_1) = \min_{|\cdot|} \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|} = \min_{|\cdot|} a_\nrm (t_2, t_1). \label{eqn:amp2}
 \end{align}
 
-The solution of this optimization is possible owing to two theorems from finite-dimensional linear algebra and yields the optimum to be the spectral radius $\rho(\cA)$ of $\cA$. 
+The solution to this optimization is possible owing to two theorems from finite-dimensional linear algebra, and yields the optimum to be the spectral radius $a(t_2,t_1) = \rho(\cA)$ of $\cA$. 
 The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. 
-The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$. 
+The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$\cite{bulirsch2002introduction}; {\it i.e.} for at least one $\nrm$ and $\epsilon>0$, $\rho (\cA) + \epsilon > a(t_2,t_1)$. 
+Combining the conclusions of the two theorems proves our claim that $a(t_2, t_1) = \rho(\cA)$. 
+Instability ensues when $a(t_2, t_1) > 1$.
+While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).
+
+Using the spectral radius for amplification agrees exactly with classical methods in the case of autonomous and time-periodic linear systems. 
+For autonomous systems, $\cA = \exp(\cL (t_2-t_1))$, and therefore $a(t_2,t_1) = \rho (\cA) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the eigenvalue of $\cL$ with the largest real part. Thus, $a(t_1,t_1)>1$ if and only if Re($\sigma$)$>0$, which is the classical criterion for linear instability.
+Similarly, for time-periodic systems with period $T$ restricted to $t_2 -t_1 = n T$, $a(t_2, t_1) = \rho (\cA ) = e^{n \beta T}$, where $\beta$ is the Floquet exponent with the largest real part. Again $a(t_2,t_1)>1$ implies Re($\beta$)$>0$, which is the classical criterion for instability of periodic systems using Floquet theory.
 
 \vspace{1cm}
 Brief rationale and description of the method, and comparison with existing methods.
