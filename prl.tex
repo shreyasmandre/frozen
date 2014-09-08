@@ -23,7 +23,7 @@
 \newcommand{\cI}{\boldsymbol{\mathcal{I}}}
 
 \newcommand{\prt}{\boldsymbol{\xi}}
-\newcommand{\nrm}{|\cdot|}
+\newcommand{\nrm}{{|\cdot|}}
 
 \begin{document}
 
@@ -75,10 +75,12 @@ Perturbations about this state are governed by
 \begin{align}
  c_t + w C_{0,z} = \nabla^2 c \text{ and }
  \bu + \grad p + c\bz = 0
+ \label{eqn:linone}
 \end{align}
 for $z<0$, and 
 \begin{align}
  c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
+ \label{eqn:lintwo}
 \end{align}
 for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. 
 We refer the reader elsewhere\cite{SlimRama10} for details. 
@@ -95,6 +97,15 @@ To ameliorate the dependence of amplification on the choice of the vector norm, 
 \begin{align}
 a(t_2, t_1) = \min_{|\cdot|} \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|} = \min_{|\cdot|} a_\nrm (t_2, t_1). \label{eqn:amp2}
 \end{align}
+Defined thusly, $a$ is interpreted as the amplification of the most dangerous perturbation on the slowest growing (or least amplified) norm; 
+if $a$ exists, every norm will exhibit an amplification of at least $a$ for its most dangerous perturbation.
+\begin{figure}
+ \centering
+ \includegraphics{./Figures/Algorithm}
+ % Algorithm.pdf: 182x127 pixel, 72dpi, 6.42x4.48 cm, bb=0 0 182 127
+ \caption{Schematic depiction of the nested algorithm used to find amplification $a(t_2, t_1)$ for the \cotwo convection problem. Each rectangle represents a subroutine performing the function listed in it, which is passed as a black-box to the nesting rectangle.}
+ \label{fig:Algorithm}
+\end{figure}
 
 The solution to this optimization is possible owing to two theorems from finite-dimensional linear algebra, and yields the optimum to be the spectral radius $a(t_2,t_1) = \rho(\cA)$ of $\cA$. 
 The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. 
@@ -112,19 +123,35 @@ Again $a(t_2,t_1)>1$ implies Re($\beta$)$>0$, which is the classical criterion f
 Tacit assumption about the linear space spanned by the perturbations. Should it be added? Do I understand it enough to claim so in a publication?
 
 In this framework, the frozen coefficient analysis is considered applicable when $t_2 - t_1 \equiv \Delta t \ll 1$, and not in terms of a separation of timescales for the evolution of the perturbations compared to the background.
-To illustrate this concept, we expand the propagator for small $\Delta t$ as $\cA = \cI + \Delta t \cL + \frac{1}{2} \left(\cL^2 + d\cL/dt \right) \Delta t^2 + \dots$. 
+To illustrate this concept, we expand the propagator for small $\Delta t$ as $\cA = \cI + \Delta t \cL + \frac{1}{2} \left(\cL^2 + d\cL/dt \right) \Delta t^2 + \dots$, where $\cI$ is the identity operator. 
 In this limit, $a(t_1 + \Delta t, t_1) = \rho(\cA) = 1 + \sigma(t_1) \Delta t + O(\Delta t^2)$, where $\sigma(t_1)$ is the largest real part of the eigenvalue of $\cL(t_1)$.
 The threshold of instability in this framework ($a(t_2,t_1) = 1$) implies and is implied by $\sigma(t_1) = 0$ to $O(\Delta t)$, which agrees with the threshold criterion used by the frozen coefficient analysis.
 This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for small $\Delta t$, it is elementary to prove that $da/dt < 0$ if $\sigma(t)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
 
+We now turn our attention to the case of \cotwo convection as an application of this method. 
+Given the $x$-translational invariance of (\ref{eqn:linone}-\ref{eqn:lintwo}), we decompose the $c$, $p$ and $\bu$ in Fourier modes to exploit their independent evolution with time. 
+The Fourier mode with wavenumber $k$ evolves according to
+\begin{align}
+ \text{insert equation(s) here}.
+\end{align}
+The determination of amplification according to \eqref{eqn:amp2} is found according to a multiply nested algorithm shown schematically in figure \ref{fig:Algorithm}. 
+Each rectangle represents a subroutine for performing the function listed inside it, and is passed as a black box to the  nesting rectangle.
+The innermost level of this algorithm is the time-integrator, which takes the initial condition $\prt(z, t_1)$ of wavenumber $k$ and evolves it to a given future time $t_2$. 
+This subroutine is used by an implicitly restarted Arnoldi algorithm for iteratively finding the largest magnitude eigenvalue implemented by the ARPACK package\cite{lehoucq1998arpack}. 
+The parameters $t_1$, $t_2$, and $k$ are also passed to this subroutine. 
+The eigenvalue calculation routine is in turn passed as a black box to an optimization algorithm based on the golden section method to find the most dangerous wavenumber. 
+This routine finds the $k$ with maximum amplification for a given $t_1$ and $t_2$. 
+Finally, this optimization is repeated for a range of $t_1$ and $t_2$.
+
+Results
+
+Interpretation
 
 \vspace{1cm}
 
-Brief rationale and description of the method, and comparison with existing methods.
-
-Criteria for threshold and equivalence with frozen coefficient
-
-Results from computations showing agreement, and teaser for future paper.
+Even if the amplification is greater than unity, because the perturbation is assumed to be infinitesimal in magnitude, it is not possible to determine based on the linear amplification analysis alone whether the growing perturbation will visibly alter the system. 
+Knowledge of the statistical distribution of spectrum of initial perturbations or the external influences feeding the perturbation is needed to make such a prediction in this framework. 
+This difference compared to the autonomous case had been identified by previous researchers on the topic.
 
 (modal ansatz cannot be made)
 
