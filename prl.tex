@@ -9,6 +9,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{dashrule}
+\usepackage[shadow,colorinlistoftodos]{todonotes}
 
 \newcommand{\comment}[1]{{\textbf{#1}}}
 \newcommand{\cotwo}{CO$_2$ }
@@ -41,9 +42,13 @@ This formulation provides a rigorous justification for the frozen coefficient an
 \end{abstract}
 \maketitle
 % Background
+\listoftodos
+\vspace{1cm}
+
 The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. 
 Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. 
 The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. 
+\todo[inline]{How long before onset? The time scale for the convection is blah, which is sometimes as long as centuries. Do we have to wait for that long for convection to commence (finite time to onset) or does it commence immediately (zero time to onset).}
 Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
 
 % The problem with the state of the art
@@ -134,17 +139,21 @@ The Fourier mode with wavenumber $k$ evolves according to
 \begin{align}
  \text{insert equation(s) here}.
 \end{align}
-The determination of amplification according to \eqref{eqn:amp2} is found according to a multiply nested algorithm shown schematically in figure \ref{fig:Algorithm}. 
-Each rectangle represents a subroutine for performing the function listed inside it, and is passed as a black box to the  nesting rectangle.
+The determination of amplification according to \eqref{eqn:amp2} is found using a multiply nested algorithm shown schematically in figure \ref{fig:Algorithm}. 
+Each rectangle represents a subroutine for performing the function listed inside it, and is passed as a black box to the rectangle immediately outside it.
 The innermost level of this algorithm is the time-integrator, which takes the initial condition $\prt(z, t_1)$ of wavenumber $k$ and evolves it to a given future time $t_2$. 
 This subroutine is used by an implicitly restarted Arnoldi algorithm for iteratively finding the largest magnitude eigenvalue implemented by the ARPACK package\cite{lehoucq1998arpack}. 
 The parameters $t_1$, $t_2$, and $k$ are also passed to this subroutine. 
 The eigenvalue calculation routine is in turn passed as a black box to an optimization algorithm based on the golden section method to find the most dangerous wavenumber. 
 This routine finds the $k$ with maximum amplification for a given $t_1$ and $t_2$. 
-Finally, this optimization is repeated for a range of $t_1$ and $t_2$.
+Finally, this optimization is repeated for a range of $t_1$ and $t_2$. 
+The execution of this algorithm results in an amplification of most dangerous perturbation on the slowest growing norm for each time pair $(t_1, t_2)$. 
 
 Results
-
+The only parameter in our problem is the ratio of mobilities $K$. \todo[inline]{Include discussion on the role of $K$ here.}
+\todo[inline]{Explain a sample amplification heat map. Interpretation of neutral curve and other contours.}
+\todo[inline]{Comparison with other norms. Demonstrate that other norms always show amplification larger than the spectral radius.}
+\todo[inline]{Explain properties of the threshold. The neutral curve always intersects $t_1 = t_2$. The time of earliest growth (onset) is on the curve $t_1 = t_2$. The neutral curve emanates perpendicular to $t_1=t_2$, when eigenvalues are real. }
 Interpretation
 
 \vspace{1cm}
