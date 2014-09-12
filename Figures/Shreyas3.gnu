@@ -1,7 +1,7 @@
 #! gnuplot
 reset
 
-set term postscript eps enhanced color solid size 8.0cm, 6.0cm
+set term postscript eps enhanced color solid size 8.0cm, 6.0cm "Times-Roman" 14
 set outp 'Frozen.eps'
 
 set key;
