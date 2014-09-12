@@ -9,7 +9,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{dashrule}
-\usepackage[shadow,colorinlistoftodos]{todonotes}
+\usepackage[disable,shadow,colorinlistoftodos]{todonotes}
 
 \newcommand{\comment}[1]{{\textbf{#1}}}
 \newcommand{\cotwo}{CO$_2$ }
@@ -32,7 +32,7 @@
 \author{Shreyas Mandre}
 \affiliation{Brown University, Providence RI 02912 USA}
 \author{Anja Slim}
-\affiliation{Schlumberger-Doll Research Center, Cambridge MA 021?? USA}
+\affiliation{\color{red} Schlumberger-Doll Research Center, Cambridge MA 021?? USA}
 \begin{abstract}
 We look at solutal convection as a prototypical problem for linear stability of transient base states. 
 We derive a formulation to determine the amplification of the most dangerous perturbation induced by the slowest growing norm. 
@@ -42,13 +42,11 @@ This formulation provides a rigorous justification for the frozen coefficient an
 \end{abstract}
 \maketitle
 % Background
-\listoftodos
-\vspace{1cm}
 
 The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. 
 Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. 
 The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. 
-\todo[inline]{How long before onset? The time scale for the convection is blah, which is sometimes as long as centuries. Do we have to wait for that long for convection to commence (finite time to onset) or does it commence immediately (zero time to onset).}
+\todo[inline]{Why is the \cotwo convection onset problem important? How long before onset? The time scale for the convection is blah, which is sometimes as long as centuries. Do we have to wait for that long for convection to commence (finite time to onset) or does it commence immediately (zero time to onset).}
 Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
 
 % The problem with the state of the art
@@ -69,26 +67,6 @@ We demonstrate this result for a special case of the onset of solutal convection
 \caption{Schematic representation of the mathematical model.}
 \label{fig:Schematic}
 \end{figure}
-
-% Mathematical model for solutal convection
-We begin by introducing the mathematical formulation of the \cotwo convection problem.
-Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
-We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. 
-At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. 
-The \cotwo concentration in the diffuse layer (scaled by the saturation concentration) is given by $C_0(z,t) = 1 + \erf( {z}/{2\sqrt{t}})$, where $z$ is the vertical coordinate, while the concentration in the \cotwo layer remains saturated and the fluid remains static. 
-Perturbations about this state are governed by 
-\begin{align}
- c_t + w C_{0,z} = \nabla^2 c \text{ and }
- \bu + \grad p + c\bz = 0
- \label{eqn:linone}
-\end{align}
-for $z<0$, and 
-\begin{align}
- c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
- \label{eqn:lintwo}
-\end{align}
-for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. 
-We refer the reader elsewhere\cite{SlimRama10} for details. 
 
 Formally, the linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
 The system may be formally integrated $\prt (t_2) = \cA(t_2, t_1) \prt (t_1)$, where $\cA (t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
@@ -134,6 +112,24 @@ The threshold of instability in this framework ($a(t_2,t_1) = 1$) implies and is
 This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for small $\Delta t$, it is elementary to prove that $da/dt < 0$ if $\sigma(t)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
 
 We now turn our attention to the case of \cotwo convection as an application of this method. 
+Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
+We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. 
+At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. 
+The \cotwo concentration in the diffuse layer (scaled by the saturation concentration) is given by $C_0(z,t) = 1 + \erf( {z}/{2\sqrt{t}})$, where $z$ is the vertical coordinate, while the concentration in the \cotwo layer remains saturated and the fluid remains static. 
+Perturbations about this state are governed by 
+\begin{align}
+ c_t + w C_{0,z} = \nabla^2 c \text{ and }
+ \bu + \grad p + c\bz = 0
+ \label{eqn:linone}
+\end{align}
+for $z<0$, and 
+\begin{align}
+ c = 0 \text{ and } \quad \bu + K (\grad p + c\bz) = 0
+ \label{eqn:lintwo}
+\end{align}
+for $z>0$, where $c$ and $p$ are the perturbations in \cotwo concentration and pressure respectively, $\bu = (u,w)$ is the velocity, and $K$ is the ratio of mobilities in the supercritical \cotwo layer to that in the brine layer. 
+We refer the reader elsewhere\cite{SlimRama10} for details. 
+
 Given the $x$-translational invariance of (\ref{eqn:linone}-\ref{eqn:lintwo}), we decompose the $c$, $p$ and $\bu$ in Fourier modes to exploit their independent evolution with time. 
 The Fourier mode with wavenumber $k$ evolves according to
 \begin{align}
