@@ -109,7 +109,7 @@ In this framework, the frozen coefficient analysis is considered applicable when
 To illustrate this concept, we expand the propagator for small $\Delta t$ as $\cA = \cI + \Delta t \cL + \frac{1}{2} \left(\cL^2 + d\cL/dt \right) \Delta t^2 + \dots$, where $\cI$ is the identity operator. 
 In this limit, $a(t_1 + \Delta t, t_1) = \rho(\cA) = 1 + \sigma(t_1) \Delta t + O(\Delta t^2)$, where $\sigma(t_1)$ is the largest real part of the eigenvalue of $\cL(t_1)$.
 The threshold of instability in this framework ($a(t_2,t_1) = 1$) implies and is implied by $\sigma(t_1) = 0$ to $O(\Delta t)$, which agrees with the threshold criterion used by the frozen coefficient analysis.
-This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for small $\Delta t$, it is elementary to prove that $da/dt < 0$ if $\sigma(t)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
+This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for $t_3 = t_2 + \Delta t$, it is elementary to prove that $da/dt(t_2) < 0$ if $\sigma(t_2)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
 
 We now turn our attention to the case of \cotwo convection as an application of this method. 
 Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
@@ -133,8 +133,12 @@ We refer the reader elsewhere\cite{SlimRama10} for details.
 Given the $x$-translational invariance of (\ref{eqn:linone}-\ref{eqn:lintwo}), we decompose the $c$, $p$ and $\bu$ in Fourier modes to exploit their independent evolution with time. 
 The Fourier mode with wavenumber $k$ evolves according to
 \begin{align}
- \text{insert equation(s) here}.
+\begin{split}
+ c_t + w C_{0,z} &= (D^2-k^2) c,  \\
+(D^2-k^2)p + Dc &= 0, \quad w = -(Dp + c),
+\end{split}
 \end{align}
+with $c=0$ and $Dp + K|k| p =0$ at $z=0$ and the symbols recycled to represent the mode amplitudes. 
 The determination of amplification according to \eqref{eqn:amp2} is found using a multiply nested algorithm shown schematically in figure \ref{fig:Algorithm}. 
 Each rectangle represents a subroutine for performing the function listed inside it, and is passed as a black box to the rectangle immediately outside it.
 The innermost level of this algorithm is the time-integrator, which takes the initial condition $\prt(z, t_1)$ of wavenumber $k$ and evolves it to a given future time $t_2$. 
@@ -154,8 +158,9 @@ The execution of this algorithm results in an amplification of most dangerous pe
 \end{figure}
 
 
-Results
-The only parameter in our problem is the ratio of mobilities $K$. \todo[inline]{Include discussion on the role of $K$ here.}
+{\bf Results: }
+The only parameter in our problem is the ratio of mobilities $K$. 
+\todo[inline]{Include discussion on the role of $K$ here.}
 \todo[inline]{Explain a sample amplification heat map. Interpretation of neutral curve and other contours.}
 \todo[inline]{Comparison with other norms. Demonstrate that other norms always show amplification larger than the spectral radius.}
 \todo[inline]{Explain properties of the threshold. The neutral curve always intersects $t_1 = t_2$. The time of earliest growth (onset) is on the curve $t_1 = t_2$. The neutral curve emanates perpendicular to $t_1=t_2$, when eigenvalues are real. }
