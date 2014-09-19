@@ -9,7 +9,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{dashrule}
-\usepackage[disable,shadow,colorinlistoftodos]{todonotes}
+\usepackage[shadow,colorinlistoftodos]{todonotes}
 
 \newcommand{\comment}[1]{{\textbf{#1}}}
 \newcommand{\cotwo}{CO$_2$ }
@@ -68,7 +68,7 @@ We demonstrate this result for a special case of the onset of solutal convection
 \label{fig:Schematic}
 \end{figure}
 
-Formally, the linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
+The linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
 The system may be formally integrated $\prt (t_2) = \cA(t_2, t_1) \prt (t_1)$, where $\cA (t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
 \begin{align}
 a_\nrm(t_2, t_1) = \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|}, \label{eqn:amp1}
@@ -97,19 +97,36 @@ Combining the conclusions of the two theorems proves our claim that $a(t_2, t_1)
 Instability ensues when $a(t_2, t_1) > 1$.
 While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).
 
-Using the spectral radius for amplification agrees exactly with classical methods in the case of autonomous and time-periodic linear systems. 
-For autonomous systems, $\cA = \exp(\cL (t_2-t_1))$, and therefore $a(t_2,t_1) = \rho (\cA) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the largest real part of the eigenvalue of $\cL$. 
-Thus, $a(t_1,t_1)>1$ if and only if Re($\sigma$)$>0$, which is the classical criterion for linear instability.
-Similarly, for time-periodic systems with period $T$ restricted to $t_2 -t_1 = n T$ for some integer $n$, $a(t_2, t_1) = \rho (\cA ) = e^{n \beta T}$, where $\beta$ is the Floquet exponent with the largest real part. 
-Again $a(t_2,t_1)>1$ implies Re($\beta$)$>0$, which is the classical criterion for instability of periodic systems using Floquet theory.
+There are four (five?) properties of $a(t_2, t_1)$ to support the claims we make in this article.
 
-Tacit assumption about the linear space spanned by the perturbations. Should it be added? Do I understand it enough to claim so in a publication?
+{\bf Property 1:} 
+For autonomous systems, $a(t_2, t_1) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the largest real part amongst the eigenvalues of $\cL$.
+This follows from $\cA(t_2, t_1) = e^{\cL(t_2-t_1)}$, and therefore the eigenvalues $\sigma_j$, $j=1, 2, \dots$, of $\cL$ being related to the eigenvalues $e^{\sigma_j (t_2-t_1)}$ of $\cA(t_2,t_1)$.
+The classical instability criteria, $\sigma > 0$, agrees with ur criteria $a(t_2, t_1)> 1$.
 
-In this framework, the frozen coefficient analysis is considered applicable when $t_2 - t_1 \equiv \Delta t \ll 1$, and not in terms of a separation of timescales for the evolution of the perturbations compared to the background.
-To illustrate this concept, we expand the propagator for small $\Delta t$ as $\cA = \cI + \Delta t \cL + \frac{1}{2} \left(\cL^2 + d\cL/dt \right) \Delta t^2 + \dots$, where $\cI$ is the identity operator. 
-In this limit, $a(t_1 + \Delta t, t_1) = \rho(\cA) = 1 + \sigma(t_1) \Delta t + O(\Delta t^2)$, where $\sigma(t_1)$ is the largest real part of the eigenvalue of $\cL(t_1)$.
-The threshold of instability in this framework ($a(t_2,t_1) = 1$) implies and is implied by $\sigma(t_1) = 0$ to $O(\Delta t)$, which agrees with the threshold criterion used by the frozen coefficient analysis.
-This analysis demonstrated that frozen coefficient analysis predicts a necessary and sufficient condition for perturbations to grow for small times. It is also possible to demonstrate that $\sigma(t) < 0$ is a sufficient condition for perturbation decay in the general case using $\cA(t_3,t_1) = \cA (t_3, t_2) \cA(t_2, t_1)$. The inequality of the spectral radii of product of operators, $\rho(\cA(t_3,t_1)) \le \rho(\cA(t_3,t_2)) \rho(\cA(t_2,t_1))$, implies $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$. Using this inequality, along with the aforementioned expansion of $\rho(\cA)$ for $t_3 = t_2 + \Delta t$, it is elementary to prove that $da/dt(t_2) < 0$ if $\sigma(t_2)<0$. Combined with the initial condition $a(t_1, t_1) = 1$ for all $t_1$, this analysis proves that $a(t_2, t_1)<1$ if $\sigma(t)<0$ for $t_1<t<t_2$, which is a sufficient condition for stability.
+{\bf Property 2:}
+For time periodic systems with period $T$, so that $\cL(t+T) = \cL(t)$, the Floquet exponents of the system ($\beta_j$) are related to the eigenvalues $e^{\beta_j T}$ of $\cA(t+T, t)$. 
+Therefore, $a(t+T, t) = e^{\beta T}$, where $\beta$ is the largest real part amongst the Floquet exponents. 
+For instability, the criteria according to Floquet theory is $\text{Re}(\beta) > 0$ is equivalent to $a(t+T, t) > 1$.
+
+{\bf Property 3:}
+$a(t+\Delta t, t) = 1 + \sigma(t) \Delta t + O(\Delta t^2)$ for $\Delta t \ll 1$, where $\sigma(t)$ is the largest real part of the eigenvalues of $\cL(t)$. 
+This result follows simply from the expansion $\cA(t+\Delta t, t) = \cI + \cL(t) \Delta t + (\cL^2 + d\cL/dt)\Delta t^2/2 + \dots$.
+The eigenvalues for $\cA(t+\Delta t, t)$ are $1 + \sigma_j \Delta t + O(\Delta t^2)$, and the spectral radius is therefore $1 + \sigma(t) \Delta t + O(\Delta t^2).$
+
+{\bf Property 4:}
+If $\sigma(t)<0$ for all $t_1<t<t_2$, then $a(t_2, t_1) < 1$.
+This property follows from $\cA(t_3, t_1) = \cA(t_3, t_2) \cA(t_2, t_1)$. 
+Since $\rho(AB) \le \rho(A) \rho(B)$, $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$.
+Therefore,
+\begin{align}
+ \frac{da}{dt}(t, t_1) &=    \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t_1) - a(t, t_1)}{\Delta t} \nonumber \\
+                       &\le \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t) - 1}{\Delta t} a(t, t_1) \nonumber \\
+                       &=   \sigma(t) a(t, t_1) \quad \cdots \quad \text{from property 3.} \nonumber
+\end{align}
+
+{\bf Property 5:}
+\todo[inline]{$\sigma(t)>0$ implies $a(t+\Delta t, t)>1$. How does one say that this means frozen coefficient works?}
 
 We now turn our attention to the case of \cotwo convection as an application of this method. 
 Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
