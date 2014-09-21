@@ -122,8 +122,9 @@ Therefore,
 \begin{align}
  \frac{da}{dt}(t, t_1) &=    \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t_1) - a(t, t_1)}{\Delta t} \nonumber \\
                        &\le \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t) - 1}{\Delta t} a(t, t_1) \nonumber \\
-                       &=   \sigma(t) a(t, t_1) \quad \cdots \quad \text{from property 3.} \nonumber
+                       &=   \sigma(t) a(t, t_1) ~ \dots ~ \text{from property 3.} \label{eqn:prop4}
 \end{align}
+Combined with $\sigma(t)<0$ for $t_1<t<t_2$, and $a(t_1, t_1) = 1$, we infer $a(t_2, t_1)<1$. Property 4 implies a stronger statement, $ a(t_2, t_1) \le \exp(\int_{t_1}^{t_2} \sigma(t) dt).$ The right hand side of this equation is sometimes used to quantify amplification\cite{fullana1999stability,zhang2010wavelength}, but also over-estimates the amplification. 
 
 {\bf Property 5:}
 \todo[inline]{$\sigma(t)>0$ implies $a(t+\Delta t, t)>1$. How does one say that this means frozen coefficient works?}
