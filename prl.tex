@@ -97,10 +97,11 @@ Combining the conclusions of the two theorems proves our claim that $a(t_2, t_1)
 Instability ensues when $a(t_2, t_1) > 1$.
 While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).
 
-There are four (five?) properties of $a(t_2, t_1)$ to support the claims we make in this article.
+There are four (five?) properties of $a(t_2, t_1)$ to support the claims we make in this article. 
+Here we denote the largest real part of the eigenvalues of $\cL(t)$ by $\sigma(t)$.
 
 {\bf Property 1:} 
-For autonomous systems, $a(t_2, t_1) = e^{\sigma (t_2-t_1)}$, where $\sigma$ is the largest real part amongst the eigenvalues of $\cL$.
+For autonomous systems, $a(t_2, t_1) = e^{\sigma (t_2-t_1)}$, where in this case $\sigma$ is independent of $t$.
 This follows from $\cA(t_2, t_1) = e^{\cL(t_2-t_1)}$, and therefore the eigenvalues $\sigma_j$, $j=1, 2, \dots$, of $\cL$ being related to the eigenvalues $e^{\sigma_j (t_2-t_1)}$ of $\cA(t_2,t_1)$.
 The classical instability criteria, $\sigma > 0$, agrees with ur criteria $a(t_2, t_1)> 1$.
 
@@ -110,8 +111,8 @@ Therefore, $a(t+T, t) = e^{\beta T}$, where $\beta$ is the largest real part amo
 For instability, the criteria according to Floquet theory is $\text{Re}(\beta) > 0$ is equivalent to $a(t+T, t) > 1$.
 
 {\bf Property 3:}
-$a(t+\Delta t, t) = 1 + \sigma(t) \Delta t + O(\Delta t^2)$ for $\Delta t \ll 1$, where $\sigma(t)$ is the largest real part of the eigenvalues of $\cL(t)$. 
-This result follows simply from the expansion $\cA(t+\Delta t, t) = \cI + \cL(t) \Delta t + (\cL^2 + d\cL/dt)\Delta t^2/2 + \dots$.
+$a(t+\Delta t, t) = 1 + \sigma(t) \Delta t + O(\Delta t^2)$ for $\Delta t \ll 1$. 
+This result follows from the expansion $\cA(t+\Delta t, t) = \cI + \cL(t) \Delta t + (\cL^2 + d\cL/dt)\Delta t^2/2 + \dots$.
 The eigenvalues for $\cA(t+\Delta t, t)$ are $1 + \sigma_j \Delta t + O(\Delta t^2)$, and the spectral radius is therefore $1 + \sigma(t) \Delta t + O(\Delta t^2).$
 
 {\bf Property 4:}
@@ -121,7 +122,7 @@ Since $\rho(AB) \le \rho(A) \rho(B)$, $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$.
 Therefore,
 \begin{align}
  \frac{da}{dt}(t, t_1) &=    \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t_1) - a(t, t_1)}{\Delta t} \nonumber \\
-                       &\le \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t) - 1}{\Delta t} a(t, t_1) \nonumber \\
+                       &\le \lim_{\Delta t \to 0} \left(\frac{a(t+\Delta t, t) - 1}{\Delta t}\right) a(t, t_1) \nonumber \\
                        &=   \sigma(t) a(t, t_1) ~ \dots ~ \text{from property 3.} \label{eqn:prop4}
 \end{align}
 Combined with $\sigma(t)<0$ for $t_1<t<t_2$, and $a(t_1, t_1) = 1$, we infer $a(t_2, t_1)<1$. Property 4 implies a stronger statement, $ a(t_2, t_1) \le \exp(\int_{t_1}^{t_2} \sigma(t) dt).$ The right hand side of this equation is sometimes used to quantify amplification\cite{fullana1999stability,zhang2010wavelength}, but also over-estimates the amplification. 
