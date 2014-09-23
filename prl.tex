@@ -22,7 +22,7 @@
 \newcommand{\cL}{\boldsymbol{\mathcal{L}}}
 \newcommand{\cA}{\boldsymbol{\mathcal{A}}}
 \newcommand{\cI}{\boldsymbol{\mathcal{I}}}
-
+\newcommand{\tc}{t_*}
 \newcommand{\prt}{\boldsymbol{\xi}}
 \newcommand{\nrm}{{|\cdot|}}
 
@@ -127,8 +127,13 @@ Therefore,
 \end{align}
 Combined with $\sigma(t)<0$ for $t_1<t<t_2$, and $a(t_1, t_1) = 1$, we infer $a(t_2, t_1)<1$. Property 4 implies a stronger statement, $ a(t_2, t_1) \le \exp(\int_{t_1}^{t_2} \sigma(t) dt).$ The right hand side of this equation is sometimes used to quantify amplification\cite{fullana1999stability,zhang2010wavelength}, but also over-estimates the amplification. 
 
-{\bf Property 5:}
 \todo[inline]{$\sigma(t)>0$ implies $a(t+\Delta t, t)>1$. How does one say that this means frozen coefficient works?}
+For the next property, we will assume that at the earliest instance $t_0$ of interest, $\sigma(t_0)<0$, so the system is stable according to frozen coefficient analysis.
+{\bf Property 5:}
+The earliest time $t_2$ for which $a(t_2, t_1)>1$ for any $t_1$ is when $t_1=t_2=\tc$, where $\tc$ is the first instance at which $\sigma(t)$ becomes positive, i.e. the frozen coefficient threshold. 
+We know from property 4 that $a(t_2, t_1)\le 1$, because $\sigma(t)\le 0$ for and $t$ in $t_0<t_1<t < t_2 < \tc$. And from property 3 $a(\tc+\Delta t, \tc) = 1 + \sigma(\tc) + O(\Delta t^2) > 0$ for sufficiently small $\Delta t$ because $\sigma(\tc)>0$. 
+
+Property 5 proves that the only unambigious criteria for the onset of amplification is equivalent to the threshold from the frozen coefficient analysis.
 
 We now turn our attention to the case of \cotwo convection as an application of this method. 
 Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
@@ -167,6 +172,15 @@ The eigenvalue calculation routine is in turn passed as a black box to an optimi
 This routine finds the $k$ with maximum amplification for a given $t_1$ and $t_2$. 
 Finally, this optimization is repeated for a range of $t_1$ and $t_2$. 
 The execution of this algorithm results in an amplification of most dangerous perturbation on the slowest growing norm for each time pair $(t_1, t_2)$. 
+
+\begin{figure}
+ \centering
+ \includegraphics{./Figures/Message}
+ % Message.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 -1 227 190
+ \caption{Heat map of the amplification $a(t_2, t_1)$ for the case $K=0$. Bold solid line shows the neutral curve, so that $a(t_2, t_1)=1$ below it, and $a(t_2,t_1)>1$ above. Light curves with labels show contours of constant $a(t_2,t_1)$ corresonding to the value on the label. The bold circle at $t_2 = t_1 = \tc$ shows the threshold according to the frozen coefficient analysis, i.e. the point for which $\sigma(\tc)=0$.}
+ \label{fig:Message}
+\end{figure}
+
 
 \begin{figure}
  \centering
