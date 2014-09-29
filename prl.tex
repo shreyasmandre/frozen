@@ -1,4 +1,4 @@
-\documentclass[letterpaper,10pt,prl,twocolumn,aps,reprint,superscriptaddress]{revtex4-1}
+\documentclass[letterpaper,prl,aps,twocolumn,reprint,superscriptaddress]{revtex4-1}
 \usepackage{fullpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -25,6 +25,11 @@
 \newcommand{\tc}{t_*}
 \newcommand{\prt}{\boldsymbol{\xi}}
 \newcommand{\nrm}{{|\cdot|}}
+\newcommand{\norm}[1]{{\|#1\|}}
+
+
+\newcommand{\obs}{o}
+\newcommand{\inc}{i}
 
 \begin{document}
 
@@ -43,72 +48,128 @@ This formulation provides a rigorous justification for the frozen coefficient an
 \maketitle
 % Background
 
-The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. 
-Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. 
-The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. 
-\todo[inline]{Why is the \cotwo convection onset problem important? How long before onset? The time scale for the convection is blah, which is sometimes as long as centuries. Do we have to wait for that long for convection to commence (finite time to onset) or does it commence immediately (zero time to onset).}
-Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
 
-% The problem with the state of the art
-Linear stability analysis of such base flows is commonly performed by freezing the time-dependence of the base state, and examining the growth of perturbation around it using classical modal theories. 
-This method, called the frozen coefficient analysis (a.k.a. quasi-steady analysis), is claimed to assume the base flow to evolve much slower than the growing perturbation. 
-Therefore, the application of frozen coefficient analysis to determine the threshold of instability is considered inconsistent and met with skepticism because at the threshold the perturbations neither grow nor decay. 
-While this discrepancy is widely acknowledged, the absence of an alternative formulation makes it difficult to evaluate the validity of the frozen coefficient analysis. 
-The results from alternative methods based on quantifying the growth of a norm (e.g. L$_2$ norm) characterizing the size of the perturbation\cite{SlimRama10}, themselves depend sensitively on the choice of the norm, and are thus unable to resolve the inconsistency.
+% INTRO
+A fundamental tool in fluid dynamics and beyond is linear stability analysis \cite{DrazinReid}.  The idea is to look for `simple' base states, often in which some physical processes are absent, and consider whether infinitesimally small perturbations grow or decay.  If the perturbations decay, then the base state is stable and simplicity is expected for sufficiently small initial amplitudes.  Conversely, if the perturbations grow, then the base state is unstable and greater complexity will be observed.  The watershed between stability and instability is linear onset.  
 
-% Our resolution of the problem
-In this letter, to address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to consider the slowest growing norm.
-We find that this modification is equivalent to the classical modal analysis for steady base flows, Floquet analysis for time-periodic base flows, and the frozen coefficient analysis for characterizing the amplification of a perturbation for a short time since its inception. 
-Using this modification, we show rigorously that a separation of time-scales is not required for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability.
-We demonstrate this result for a special case of the onset of solutal convection in porous medium.
+For steady base states, the concept of linear onset is clearly defined, conceptually simple and easy to calculate.  If the ensuing bifurcation is supercritical, then predictions are also in good agreement with experiments (for example in Rayleigh--Benard convection).  If the bifurcation is subcritical, then onset is observed before the linear prediction.   The extent of the discrepancy depends on the initial amplitude of the perturbations and is potentially influenced by transient, non-normal growth of otherwise stable linear modes \cite{Trefethen}.  However, the linear prediction always provides an upper bound, beyond which instability is guaranteed.  
 
-\begin{figure}[b]
-\vspace{5cm}
-\caption{Schematic representation of the mathematical model.}
-\label{fig:Schematic}
-\end{figure}
+For many applications, the relevant base state is unsteady \cite{brouillette2002richtmyer,anderson2010foam,homsy1987viscous,thorpe1968method,MORE}.  Again it is desirable to identify when a simple solution is expected an when greater complexity is likely to be observed, however the concept of onset is not clearly defined and the practice of linear stability analysis is much less clear and less well-established.  
 
-The linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
-The system may be formally integrated $\prt (t_2) = \cA(t_2, t_1) \prt (t_1)$, where $\cA (t_2, t_1)$ is the propagator for the linear system from time $t_1$ to $t_2$. Solving the optimization problem 
+The simplest and most obvious approach is to freeze time at a given instant and perform a standard analysis with time in the base state taken to be a parameter.  This is variably referred to as frozen-coefficient analysis or quasi-steady-state analysis.  However, this was widely criticized in the 1970s and thought to be fundamentally flawed \cite{GreshoSani71,Homsy}.  The argument is that the approach implicitly assumes that perturbations grow fast relative to the evolution of the base state, which is patently incorrect at onset.  Nevertheless, in many fields this approach is still used, albeit with the tacit understanding that it is not quite correct, presumably because it is simple in both concept and application \cite{Meiburg,BertozziBrenner}.
+
+In other fields, there is significant research devoted to pursuing alternative calculations (for example, solutal convection in a pure fluid or in a porous medium \cite{references}).  Two popular alternatives are (1) to evolve a given set of initial conditions from $t=0$, choose a measure of size (usually an $L_2$ norm of the dependent variables) and deem onset to occur when this measure first grows or has reached a certain amplification \cite{Foster,GreshoSani,EnnisKingPaterson,more}.  In practice, the finite set is often reduced to a \emph{single} initial condition.  An alternative is (s) to choose a given shape for the perturbations for all time and calculate the amplification (with some choice of projection) \cite{Ben,Riaz,more}.  These approaches, and others, have subjective assumptions on
+\begin{enumerate}
+\itemsep=0cm
+\item how much amplification equates to `onset'
+\item the choice of time at which perturbations are introduced: usually there is continuous in time random noise and there is no \emph{a priori} reason that the relevant perturbations are introduced at $t=0$ \cite{GreshoSani}
+\item the shape of perturbations
+\item how to measure `size'.  For some applications, there may be a clear energy associated with the system (such as for high Reynolds number flows) that is the appropriate measure, but for many others, there is not (for example Darcy models of porous media flow or models of river braiding) and an alternative must be sought.  Even for the case of convection starting from a step-change in boundary temperature, it is debated whether the $L_2$ norm of temperature or velocity or some combination is most appropriate \cite{GreshoSani}.  Indeed, even if a clear energy is available, growth of that energy in some regions of space may be more important than in others and so may engender different weightings.
+\end{enumerate}
+This range of assumptions and their subjectivity can result in a wide range of predictions for onset, potentially differing by an order of magnitude or more \cite{example}.
+
+The first subjective assumption can be made objective by defining onset of a mode as the time when its size first grows.  However, for unsteady base states, the growth of a mode does not guarantee that a macroscopic instability is observed: the mode may not be introduced at the appropriate time or may not be sufficiently amplified before the base state evolves and stabilizes.  The second and third can be made objective by assuming ignorance of the source of noise and considering all possible perturbations introduced at all possible times.  This corresponds to using generalized stability theory or non-modal analysis to find the maximum instantaneous growth rate and the amplification and specifically equating onset with zero maximum growth \cite{FarrellIoannou,SlimRama10}.  However, this still requires a choice of measure for the `size' of perturbations.
+
+In emerging problems (Shmuel, Petia, Knobloch), people are often unsure about how to proceed.  They are aware that frozen-coefficient analysis is incorrect, but may not be aware of the applicability of generalized stability analysis, or there may not be a clear measure of size.
+
+Thus there is a need for a clear and objective definition of onset for unsteady problems, ideally one that is conceptually and computationally simple, as well as the subsequent amplification.  We develop such definitions and explore their consequences.  We follow generalized stability analysis, but in addition to assuming ignorance of the time and type of perturbation, we also assume ignorance with respect to the measure of size.  Thus we define onset to be the {\bf earliest possible time at which in any measure of size there exists a perturbation that grows} or equivalently {\bf the earliest time at which there is no possible way of looking at the system and observing only decaying perturbations}.  In what follows, we show that this onset criterion corresponds precisely with frozen-coefficient analysis.  Thus we give a rigorous justification of frozen-coefficient analysis and the na\"ive application of steady methods to unsteady problems.  We then apply the approach to solutal convection in a porous medium as an illustrative example where non-modal stability analysis predicts a surprising result.  Amplification is defined to be the amplification of the most dangerous perturbation for the slowest growing norm.
+
+We begin with a system of nonlinear partial differential equations representing a physical phenomenon and look for a `simple' base state.  We then consider nearby solutions by adding arbitrarily small noise and linearizing about the base state.  This yields a system of linear partial differential equations in space and time with potentially non-constant coefficients.  In practice, these partial differential equations are discretized in space using say a truncated Fourier series or a finite-difference approximation and we shall assume that they have been so \cite{FarrellIoannou}.  Thus we arrive at a non-autonomous linear system of ordinary differential equations
+\begin{equation} \label{eq:GE}
+\frac{\text{d}\prt}{\text{d} t} = \cL(t)\prt,
+\end{equation}
+where $\cL$ is the linearized operator, a potentially complex and non-normal matrix, and $\prt$ represents the discretized dependent variables, say the Fourier coefficients or point values of the dependent variables.  
+
+
+% The study of solutal convection is motivated by carbon dioxide sequestration in deep aquifers\cite{SlimRama10,RapakaChen08,RiazHesse06,EnnisKingPreston05,EnnisKingPaterson05}. 
+% Super critical carbon dioxide introduced in the porous rock displaces the brine in the pores, rises to the top on account of being lighter than the brine, spreads horizontally along a cap rock, and starts dissolving in the brine. 
+% The solution of carbon dioxide in water is heavier than water, and therefore convection ensues as an instability of a diffusing (and hence transient) solute concentration gradient. 
+% \todo[inline]{Why is the \cotwo convection onset problem important? How long before onset? The time scale for the convection is blah, which is sometimes as long as centuries. Do we have to wait for that long for convection to commence (finite time to onset) or does it commence immediately (zero time to onset).}
+% Instabilities of unsteady flows are frequently encountered on microscopic (the Richtmyer-Meshkov instability\cite{brouillette2002richtmyer}, foam mechanics \cite{anderson2010foam}) to geophysical scales (miscible viscous fingering\cite{homsy1987viscous}, transient shear flows leading to analogs of Kelvin-Helmholtz instability\cite{thorpe1968method}). 
+
+% % The problem with the state of the art
+% Linear stability analysis of such base flows is commonly performed by freezing the time-dependence of the base state, and examining the growth of perturbation around it using classical modal theories. 
+% This method, called the frozen coefficient analysis (a.k.a. quasi-steady analysis), is claimed to assume the base flow to evolve much slower than the growing perturbation. 
+% Therefore, the application of frozen coefficient analysis to determine the threshold of instability is considered inconsistent and met with skepticism because at the threshold the perturbations neither grow nor decay. 
+% While this discrepancy is widely acknowledged, the absence of an alternative formulation makes it difficult to evaluate the validity of the frozen coefficient analysis. 
+% The results from alternative methods based on quantifying the growth of a norm (e.g. L$_2$ norm) characterizing the size of the perturbation\cite{SlimRama10}, themselves depend sensitively on the choice of the norm, and are thus unable to resolve the inconsistency.
+
+% % Our resolution of the problem
+% In this letter, to address the sensitive dependence of the stability results on the choice of the norm, we extend the analysis to consider the slowest growing norm.
+% We find that this modification is equivalent to the classical modal analysis for steady base flows, Floquet analysis for time-periodic base flows, and the frozen coefficient analysis for characterizing the amplification of a perturbation for a short time since its inception. 
+% Using this modification, we show rigorously that a separation of time-scales is not required for the validity of frozen coefficient analysis, and that it gives the correct threshold for the onset of instability.
+% We demonstrate this result for a special case of the onset of solutal convection in porous medium.
+
+% \begin{figure}[b]
+% \vspace{5cm}
+% \caption{Schematic representation of the mathematical model.}
+% \label{fig:Schematic}
+% \end{figure}
+
+%The linearization of governing equations for the dynamics of the perturbation $\prt$ about a transient base state leads to a non-autonomous system, written as ${d\prt}/{dt} = \cL(t)\prt$, where $\cL$ is the linearized operator. 
+
+The system may be formally integrated as
+\begin{equation} \label{eq:PROP}
+\prt (t_\obs) = \cA(t_\obs, t_\inc) \prt (t_\inc), 
+\end{equation}
+where $\cA (t_\obs, t_\inc)$ is the propagator for the linear system, a linear operator transforming an initial condition at time $t_\inc$ into a solution of the initial value problem at time $t_\obs$.  Substituting this form into \eqref{eq:GE} gives
+\begin{equation} \label{eq:ME}
+\frac{\text{d}\cA}{\text{d} t} = \cL(t)\cA,
+\end{equation}
+with initial condition $\cA=\cI$ at $t=t_\inc$.  The solution of this system now effectively solves the original system for all initial conditions.  For a given norm or measure of size, which we denote $\nrm$, we define the norm-dependent amplification as 
+%Solving the optimization problem
 \begin{align}
-a_\nrm(t_2, t_1) = \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|}, \label{eqn:amp1}
+a_\nrm(t_\obs, t_\inc) = \max_{\prt(t_\inc)} \frac{\norm{\prt(t_\obs)}}{\norm{\prt(t_\inc)}} = \norm{\cA(t_\obs,t_\inc)}, \label{eqn:amp1} %= \max_{|\prt|=1} {| \cA(t_\obs, t_\inc) \prt|}
 \end{align}
-gives the amplification of a particular vector norm $|\cdot|$ induced by the dynamics on the most dangerous perturbation. 
-Because of the time dependence of $\cL$, the amplification of the perturbation depends on both the inception time $t_1$ and the final time $t_2$, and all possible pairs $(t_1, t_2)$ must be considered. 
-By choosing a suitable vector norm the amplification may be made arbitrarily large, even for the most benign $\cA$ (see supplementary material?). 
+%gives 
+the amplification 
+%of a particular vector norm $|\cdot|$ 
+induced by the most dangerous perturbation for that norm. 
+Because of the time dependence of $\cL$, the amplification of the perturbation depends on both the inception time $t_\inc$ and the final time $t_\obs$, and all possible pairs $(t_\inc, t_\obs)$ must be considered. 
+WE ASSUME IGNORANCE OF THE APPROPRIATE MEASURE OF SIZE?  By choosing a suitable vector norm the amplification may be made arbitrarily large, even for the most benign $\cA$ (see supplementary material?). 
 To ameliorate the dependence of amplification on the choice of the vector norm, we nest the optimization to find the vector norm which results in the least amplification as
 \begin{align}
-a(t_2, t_1) = \min_{|\cdot|} \max_{|\prt|=1} {| \cA(t_2, t_1) \prt|} = \min_{|\cdot|} a_\nrm (t_2, t_1). \label{eqn:amp2}
+a(t_\obs, t_\inc) = \min_{|\cdot|} a_\nrm (t_\obs, t_\inc). \label{eqn:amp2} % = \min_{|\cdot|} \max_{|\prt|=1} {| \cA(t_\obs, t_\inc) \prt|}
 \end{align}
 Defined thusly, $a$ is interpreted as the amplification of the most dangerous perturbation on the slowest growing (or least amplified) norm; 
 if $a$ exists, every norm will exhibit an amplification of at least $a$ for its most dangerous perturbation.
-\begin{figure}
- \centering
- \includegraphics{./Figures/Algorithm}
- % Algorithm.pdf: 182x127 pixel, 72dpi, 6.42x4.48 cm, bb=0 0 182 127
- \caption{Schematic depiction of the nested algorithm used to find amplification $a(t_2, t_1)$ for the \cotwo convection problem. Each rectangle represents a subroutine performing the function listed in it, which is passed as a black-box to the nesting rectangle.}
- \label{fig:Algorithm}
-\end{figure}
 
-The solution to this optimization is possible owing to two theorems from finite-dimensional linear algebra, and yields the optimum to be the spectral radius $a(t_2,t_1) = \rho(\cA)$ of $\cA$. 
-The first theorem states that for every vector norm $\rho(\cA) \le a(t_2,t_1)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. 
-The second theorem states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_2,t_1)$\cite{bulirsch2002introduction}; {\it i.e.} for at least one $\nrm$ and $\epsilon>0$, $\rho (\cA) + \epsilon > a(t_2,t_1)$. 
-Combining the conclusions of the two theorems proves our claim that $a(t_2, t_1) = \rho(\cA)$. 
-Instability ensues when $a(t_2, t_1) > 1$.
-While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).
+The solution to this optimization problem is 
+\begin{equation} \label{eq:RHO}
+a(t_\obs,t_\inc) = \rho(\cA),
+\end{equation}
+where $\rho(\cA)$ is the spectral radius of $\cA$, the largest magnitude of the eigenvalues of $\cA$.  This results from two theorems of finite-dimensional linear algebra.
+%The solution to this optimization is possible owing to two theorems from finite-dimensional linear algebra, and yields the optimum to be the spectral radius $a(t_\obs,t_\inc) = \rho(\cA)$ of $\cA$. 
+The first 
+%theorem 
+states that for every vector norm $\rho(\cA) \le a(t_\obs,t_\inc)$, as can be easily verified by substituting the eigenvector corresponding to the largest magnitude eigenvalue of $\cA$ in \eqref{eqn:amp1}. 
+The second 
+%theorem 
+states that there exists a vector norm for which the spectral radius comes arbitrarily close to $a(t_\obs,t_\inc)$ \cite{bulirsch2002introduction}; {\it i.e.} for at least one $\nrm$ and $\epsilon>0$, $\rho (\cA) + \epsilon > a(t_\obs,t_\inc)$. 
+Combining the conclusions proves our claim.% that $a(t_\obs, t_\inc) = \rho(\cA)$. 
+\todo{While the applicability of this conclusion is strictly valid for finite-dimensional systems, we believe that similar proofs should be possible for infinite-dimensional systems with only a few active modes ({\it e.g.} where diffusion damps out high wavenumbers, such as for \cotwo convection).}
 
-There are four (five?) properties of $a(t_2, t_1)$ to support the claims we make in this article. 
+This now allows an objective measure of amplification to be calculated via \eqref{eq:ME} and \eqref{eq:RHO}.  Instability exists when $a(t_\obs, t_\inc) > 1$.
+We shall show that this definition corresponds precisely with classical analyses for steady and time-periodic base states and frozen-coefficient analysis for unsteady base states.  
+%
+%There are four (five?) properties of $a(t_\obs, t_\inc)$ to support the claims we make in this article. 
 Here we denote the largest real part of the eigenvalues of $\cL(t)$ by $\sigma(t)$.
 
-{\bf Property 1:} 
-For autonomous systems, $a(t_2, t_1) = e^{\sigma (t_2-t_1)}$, where in this case $\sigma$ is independent of $t$.
-This follows from $\cA(t_2, t_1) = e^{\cL(t_2-t_1)}$, and therefore the eigenvalues $\sigma_j$, $j=1, 2, \dots$, of $\cL$ being related to the eigenvalues $e^{\sigma_j (t_2-t_1)}$ of $\cA(t_2,t_1)$.
-The classical instability criteria, $\sigma > 0$, agrees with ur criteria $a(t_2, t_1)> 1$.
+For steady base states, \eqref{eq:ME} can be integrated to give $\cA(t_\obs,t_\inc)= \text{e}^{\cL(t_\obs-t_\inc)}$.  Therefore the eigenvalues of $\cA$ are $\text{e}^{\sigma_j(t_\obs-t_\inc)}$, where $\sigma_j$ are the eigenvalues of $\cL$.  Hence $a(t_\obs,t_\inc)=\text{e}^{\sigma(t_\obs-t_\inc)}$ and the classical instability criterion $\sigma>0$ precisely matches our condition $a(t_\obs,t_\inc)>1$.
 
-{\bf Property 2:}
+%{\bf Property 1:} 
+%For autonomous systems, $a(t_\obs, t_\inc) = e^{\sigma (t_\obs-t_\inc)}$, where in this case $\sigma$ is independent of $t$.
+%This follows from $\cA(t_\obs, t_\inc) = e^{\cL(t_\obs-t_\inc)}$, and therefore the eigenvalues $\sigma_j$, $j=1, 2, \dots$, of $\cL$ being related to the eigenvalues $e^{\sigma_j (t_\obs-t_\inc)}$ of $\cA(t_\obs,t_\inc)$.
+%The classical instability criteria, $\sigma > 0$, agrees with ur criteria $a(t_\obs, t_\inc)> 1$.
+
+%{\bf Property 2:}
 For time periodic systems with period $T$, so that $\cL(t+T) = \cL(t)$, the Floquet exponents of the system ($\beta_j$) are related to the eigenvalues $e^{\beta_j T}$ of $\cA(t+T, t)$. 
 Therefore, $a(t+T, t) = e^{\beta T}$, where $\beta$ is the largest real part amongst the Floquet exponents. 
-For instability, the criteria according to Floquet theory is $\text{Re}(\beta) > 0$ is equivalent to $a(t+T, t) > 1$.
+For instability, the criteria according to Floquet theory is $\text{Re}(\beta) > 0$ is equivalent to $a(t+T, t) > 1$.  REFERENCE FOR FLOQUET
+
+We now turn to onset conditions for unsteady base states.  We define onset to be the earliest time at which there is an amplified mode in every norm.  We show that this is equivalent to the earliest time at which there is an instantaneously growing mode in every norm and that this in turn is equivalent to frozen-coefficient analysis.
+\todo{I think the following needs some more signposts}
+
 
 {\bf Property 3:}
 $a(t+\Delta t, t) = 1 + \sigma(t) \Delta t + O(\Delta t^2)$ for $\Delta t \ll 1$. 
@@ -116,26 +177,38 @@ This result follows from the expansion $\cA(t+\Delta t, t) = \cI + \cL(t) \Delta
 The eigenvalues for $\cA(t+\Delta t, t)$ are $1 + \sigma_j \Delta t + O(\Delta t^2)$, and the spectral radius is therefore $1 + \sigma(t) \Delta t + O(\Delta t^2).$
 
 {\bf Property 4:}
-If $\sigma(t)<0$ for all $t_1<t<t_2$, then $a(t_2, t_1) < 1$.
-This property follows from $\cA(t_3, t_1) = \cA(t_3, t_2) \cA(t_2, t_1)$. 
-Since $\rho(AB) \le \rho(A) \rho(B)$, $a(t_3, t_1) \le a(t_3, t_2) a(t_2, t_1)$.
+If $\sigma(t)<0$ for all $t_\inc<t<t_\obs$, then $a(t_\obs, t_\inc) < 1$.
+This property follows from $\cA(t_3, t_\inc) = \cA(t_3, t_\obs) \cA(t_\obs, t_\inc)$. 
+Since $\rho(AB) \le \rho(A) \rho(B)$, $a(t_3, t_\inc) \le a(t_3, t_\obs) a(t_\obs, t_\inc)$.
 Therefore,
 \begin{align}
- \frac{da}{dt}(t, t_1) &=    \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t_1) - a(t, t_1)}{\Delta t} \nonumber \\
-                       &\le \lim_{\Delta t \to 0} \left(\frac{a(t+\Delta t, t) - 1}{\Delta t}\right) a(t, t_1) \nonumber \\
-                       &=   \sigma(t) a(t, t_1) ~ \dots ~ \text{from property 3.} \label{eqn:prop4}
+ \frac{da}{dt}(t, t_\inc) &=    \lim_{\Delta t \to 0} \frac{a(t+\Delta t, t_\inc) - a(t, t_\inc)}{\Delta t} \nonumber \\
+                       &\le \lim_{\Delta t \to 0} \left(\frac{a(t+\Delta t, t) - 1}{\Delta t}\right) a(t, t_\inc) \nonumber \\
+                       &=   \sigma(t) a(t, t_\inc) ~ \dots ~ \text{from property 3.} \label{eqn:prop4}
 \end{align}
-Combined with $\sigma(t)<0$ for $t_1<t<t_2$, and $a(t_1, t_1) = 1$, we infer $a(t_2, t_1)<1$. Property 4 implies a stronger statement, $ a(t_2, t_1) \le \exp(\int_{t_1}^{t_2} \sigma(t) dt).$ The right hand side of this equation is sometimes used to quantify amplification\cite{fullana1999stability,zhang2010wavelength}, but also over-estimates the amplification. 
+Combined with $\sigma(t)<0$ for $t_\inc<t<t_\obs$, and $a(t_\inc, t_\inc) = 1$, we infer $a(t_\obs, t_\inc)<1$. Property 4 implies a stronger statement, $ a(t_\obs, t_\inc) \le \exp(\int_{t_\inc}^{t_\obs} \sigma(t) dt).$ The right hand side of this equation is sometimes used to quantify amplification\cite{fullana1999stability,zhang2010wavelength}, but also over-estimates the amplification. 
 
 \todo[inline]{$\sigma(t)>0$ implies $a(t+\Delta t, t)>1$. How does one say that this means frozen coefficient works?}
 For the next property, we will assume that at the earliest instance $t_0$ of interest, $\sigma(t_0)<0$, so the system is stable according to frozen coefficient analysis.
 {\bf Property 5:}
-The earliest time $t_2$ for which $a(t_2, t_1)>1$ for any $t_1$ is when $t_1=t_2=\tc$, where $\tc$ is the first instance at which $\sigma(t)$ becomes positive, i.e. the frozen coefficient threshold. 
-We know from property 4 that $a(t_2, t_1)\le 1$, because $\sigma(t)\le 0$ for and $t$ in $t_0<t_1<t < t_2 < \tc$. And from property 3 $a(\tc+\Delta t, \tc) = 1 + \sigma(\tc) + O(\Delta t^2) > 0$ for sufficiently small $\Delta t$ because $\sigma(\tc)>0$. 
+The earliest time $t_\obs$ for which $a(t_\obs, t_\inc)>1$ for any $t_\inc$ is when $t_\inc=t_\obs=\tc$, where $\tc$ is the first instance at which $\sigma(t)$ becomes positive, i.e. the frozen coefficient threshold. 
+We know from property 4 that $a(t_\obs, t_\inc)\le 1$, because $\sigma(t)\le 0$ for and $t$ in $t_0<t_\inc<t < t_\obs < \tc$. And from property 3 $a(\tc+\Delta t, \tc) = 1 + \sigma(\tc) + O(\Delta t^2) > 0$ for sufficiently small $\Delta t$ because $\sigma(\tc)>0$. 
 
-Property 5 proves that the only unambigious criteria for the onset of amplification is equivalent to the threshold from the frozen coefficient analysis.
+Property 5 proves that the only unambiguous criteria for the onset of amplification is equivalent to the threshold from the frozen coefficient analysis.
 
-We now turn our attention to the case of \cotwo convection as an application of this method. 
+\begin{figure}
+ \centering
+ \includegraphics{./Figures/Algorithm}
+ % Algorithm.pdf: 182x127 pixel, 72dpi, 6.42x4.48 cm, bb=0 0 182 127
+ \caption{Schematic depiction of the nested algorithm used to find amplification $a(t_\obs, t_\inc)$ for the \cotwo convection problem. Each rectangle represents a subroutine performing the function listed in it, which is passed as a black-box to the nesting rectangle.}
+ \label{fig:Algorithm}
+\end{figure}
+
+An illustrative example where generalized stability theory gives a surprising result is in solutal convection in porous media.  This problem has received significant attention recently because of its potential relevance to geological carbon dioxide storage underground in porous, brine-filled formations.  When the supercritical \COtwo{} is introduced, it is less dense than the resident brine and rises until it reaches a cap rock where it spreads laterally and forms an almost horizontal layer.  The \COtwo{} is slightly soluble in brine and dissolves into the brine cohabiting its pore space and also gradually diffuses into the underlying brine.  It has the unusual property that it makes the brine denser and so there is the potential for convective overturning.  This is of practical interest because aqueous storage is deemed to be more secure and convection greatly enhances the rate at which \COtwo{} dissolves.  Thus there is potential interest in designing injection protocols that optimize this transition.  There has been much research in the case where the two-phase layer is effectively impermeable (the brine remaining in the pore-space filled with supercritical \COtwo{} is effectively unable to flow) and a finite time for onset has been found (which could equate to hours to centuries depending on the formation properties).  However, in reality, the two-phase layer can be permeable to brine flow and where the relative permeability (the ratio of the permeability to brine in the upper, two-phase layer to the permeability in the lower, brine-only layer) is greater than about $0.5$, generalized stability analysis results suggest that onset could be instantaneous for arbitrarily thick layers.  This would strongly suggest that creating a two-phase zone that is highly permeable to brine is highly desirable.  
+
+We readdress this problem using frozen-coefficient analysis and also calculate amplifications.  
+
+%We now turn our attention to the case of \cotwo convection as an application of this method. 
 Consider a semi-infinite layer of porous rock filled with supercritical \cotwo above a semi-infinite layer filled with brine, as shown in figure \ref{fig:Schematic}. 
 We scale quantities such that the diffusivity of carbon dioxide, the Darcy mobility of the solution in the porous rock and the linear coefficient of buoyancy on \cotwo concentration is unity. 
 At time $t=0$, the two layers come in contact and the \cotwo starts to dissolve and diffuse into the brine. 
@@ -165,19 +238,19 @@ The Fourier mode with wavenumber $k$ evolves according to
 with $c=0$ and $Dp + K|k| p =0$ at $z=0$ and the symbols recycled to represent the mode amplitudes. 
 The determination of amplification according to \eqref{eqn:amp2} is found using a multiply nested algorithm shown schematically in figure \ref{fig:Algorithm}. 
 Each rectangle represents a subroutine for performing the function listed inside it, and is passed as a black box to the rectangle immediately outside it.
-The innermost level of this algorithm is the time-integrator, which takes the initial condition $\prt(z, t_1)$ of wavenumber $k$ and evolves it to a given future time $t_2$. 
+The innermost level of this algorithm is the time-integrator, which takes the initial condition $\prt(z, t_\inc)$ of wavenumber $k$ and evolves it to a given future time $t_\obs$. 
 This subroutine is used by an implicitly restarted Arnoldi algorithm for iteratively finding the largest magnitude eigenvalue implemented by the ARPACK package\cite{lehoucq1998arpack}. 
-The parameters $t_1$, $t_2$, and $k$ are also passed to this subroutine. 
+The parameters $t_\inc$, $t_\obs$, and $k$ are also passed to this subroutine. 
 The eigenvalue calculation routine is in turn passed as a black box to an optimization algorithm based on the golden section method to find the most dangerous wavenumber. 
-This routine finds the $k$ with maximum amplification for a given $t_1$ and $t_2$. 
-Finally, this optimization is repeated for a range of $t_1$ and $t_2$. 
-The execution of this algorithm results in an amplification of most dangerous perturbation on the slowest growing norm for each time pair $(t_1, t_2)$. 
+This routine finds the $k$ with maximum amplification for a given $t_\inc$ and $t_\obs$. 
+Finally, this optimization is repeated for a range of $t_\inc$ and $t_\obs$. 
+The execution of this algorithm results in an amplification of most dangerous perturbation on the slowest growing norm for each time pair $(t_\inc, t_\obs)$. 
 
 \begin{figure}
  \centering
  \includegraphics{./Figures/Message}
  % Message.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 -1 227 190
- \caption{Heat map of the amplification $a(t_2, t_1)$ for the case $K=0$. Bold solid line shows the neutral curve, so that $a(t_2, t_1)=1$ below it, and $a(t_2,t_1)>1$ above. Light curves with labels show contours of constant $a(t_2,t_1)$ corresonding to the value on the label. The bold circle at $t_2 = t_1 = \tc$ shows the threshold according to the frozen coefficient analysis, i.e. the point for which $\sigma(\tc)=0$.}
+ \caption{Heat map of the amplification $a(t_\obs, t_\inc)$ for the case $K=0$. Bold solid line shows the neutral curve, so that $a(t_\obs, t_\inc)=1$ below it, and $a(t_\obs,t_\inc)>1$ above. Light curves with labels show contours of constant $a(t_\obs,t_\inc)$ corresponding to the value on the label. The bold circle at $t_\obs = t_\inc = \tc$ shows the threshold according to the frozen coefficient analysis, i.e. the point for which $\sigma(\tc)=0$.}
  \label{fig:Message}
 \end{figure}
 
@@ -196,7 +269,7 @@ The only parameter in our problem is the ratio of mobilities $K$.
 \todo[inline]{Include discussion on the role of $K$ here.}
 \todo[inline]{Explain a sample amplification heat map. Interpretation of neutral curve and other contours.}
 \todo[inline]{Comparison with other norms. Demonstrate that other norms always show amplification larger than the spectral radius.}
-\todo[inline]{Explain properties of the threshold. The neutral curve always intersects $t_1 = t_2$. The time of earliest growth (onset) is on the curve $t_1 = t_2$. The neutral curve emanates perpendicular to $t_1=t_2$, when eigenvalues are real. }
+\todo[inline]{Explain properties of the threshold. The neutral curve always intersects $t_\inc = t_\obs$. The time of earliest growth (onset) is on the curve $t_\inc = t_\obs$. The neutral curve emanates perpendicular to $t_\inc=t_\obs$, when eigenvalues are real. }
 Interpretation
 
 \vspace{1cm}
