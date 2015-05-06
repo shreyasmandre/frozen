@@ -1,0 +1,130 @@
+\documentclass[letterpaper,prl,aps,preprint,superscriptaddress]{revtex4-1}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+% \usepackage{slashbox}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{dashrule}
+\usepackage[shadow,colorinlistoftodos]{todonotes}
+
+\newcommand{\comment}[1]{{\textbf{#1}}}
+\newcommand{\cotwo}{CO$_2$ }
+\newcommand{\COtwo}[1]{CO$_2$ }
+\newcommand{\erf}{\text{erf}}
+\newcommand{\bu}{\boldsymbol{u}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bz}{\hat{\boldsymbol{z}}}
+\newcommand{\grad}{\boldsymbol{\nabla}}
+\newcommand{\cL}{\boldsymbol{\mathcal{L}}}
+\newcommand{\cZ}{\boldsymbol{\mathcal{Z}}}
+\newcommand{\cA}{\boldsymbol{\mathcal{A}}}
+\newcommand{\cI}{\boldsymbol{\mathcal{I}}}
+
+\newcommand{\prt}{\boldsymbol{\xi}}
+\newcommand{\norm}[1]{{\|#1\|}}
+\newcommand{\nrm}{{|\cdot|}}
+
+\begin{document}
+
+\title{A systematic method for the linear stability of unsteady flows}
+\author{Shreyas Mandre}
+\affiliation{Brown University, Providence RI 02912 USA}
+\author{Anja Slim}
+\affiliation{Monash University}
+
+\maketitle
+
+\todo[inline]{WHEN TO ACTUALLY SAY NORM VERSUS SIZE.  GENERALIZED OR NON-NORMAL?}
+
+A fundamental tool in fluid dynamics and beyond is linear stability analysis \cite{DrazinReid}.  The idea is to look for `simple' base states, often in which some physical processes are absent, and consider whether infinitesimally small perturbations grow or decay.  If the perturbations decay, then the base state is stable and simplicity is expect for sufficiently small initial amplitudes.  Conversely, if the perturbations grow, then the base state is unstable and greater complexity will be observed.  The watershed between stability and instability is linear onset.  
+
+For steady base states, the concept of linear onset is clearly defined, conceptually simple and easy to calculate.  If the ensuing bifurcation is supercritical, then predictions are also in good agreement with experiments (for example in Rayleigh--Benard convection).  If the bifurcation is subcritical, then onset is observed before the linear prediction.   The extent of the discrepancy depends on the initial amplitude of the perturbations and is potentially influenced by transient, non-normal growth of otherwise stable linear modes \cite{Trefethen}.  However, the linear prediction always provides an upper bound, beyond which instability is guaranteed.  
+
+For many applications, the relevant base state is unsteady \cite{lots of refs to various fields}.  Again it is desirable to calculate linear onset of instability, however the concept is not clearly defined and the practice of linear stability analysis is much less clear and less well-established.  The simplest and most obvious approach is to freeze time at a given instant and perform a standard analysis with time in the base state taken to be a parameter.  This is variably referred to as frozen-coefficient analysis or quasi-steady-state analysis.  However, this was slammed in the 1970s as fundamentally flawed \cite{GreshoSani71,Homsy}.  The argument is that the approach implicitly assumes that perturbations grow fast relative to the evolution of the base state, which is patently incorrect at onset.  Nevertheless, in many fields this approach is still used, albeit with the tacit understanding that it is not quite correct, presumably because it is simple in both concept and application \cite{Meiburg,BertozziBrenner}.
+
+In other fields, there is significant research devoted to pursuing alternative calculations (for example, solutal convection in a pure fluid or in a porous medium \cite{references}).  Two popular alternatives are
+\begin{itemize}
+\itemsep=0cm
+\item to evolve a given set of initial conditions from $t=0$, choose a measure of size (usually an $L_2$ norm of the dependent variables) and deem onset to occur when this measure first grows or has reached a certain amplification \cite{Foster,GreshoSani,EnnisKingPaterson,more}.  In practice, the finite set is often reduced to a \emph{single} initial condition.
+\item to choose a given shape for the perturbations for all time and calculate the amplification (with some choice of projection) \cite{Ben,Riaz,more}.
+\end{itemize}
+These approaches, and others, have subjective assumptions on
+\begin{enumerate}
+\itemsep=0cm
+\item how much amplification equates to `onset'
+\item the choice of time at which perturbations are introduced: usually there is continuous in time random noise and there is no \emph{a priori} reason that the relevant perturbations are introduced at $t=0$ \cite{GreshoSani}
+\item the shape of perturbations
+\item how to measure `size'.  For some applications, there may be a clear energy associated with the system (such as for high Reynolds number flows) that is the appropriate measure, but for many others, there is not (for example Darcy models of porous media flow or models of river braiding) and an alternative must be sought.  Even for the case of convection starting from a step-change in boundary temperature, it is debated whether the $L_2$ norm of temperature or velocity or some combination is most appropriate \cite{GreshoSani}.  Indeed, even if a clear energy is available, growth of that energy in some regions of space may be more important than in others and so may engender different weightings.
+\end{enumerate}
+This range of assumptions and their subjectivity can result in a wide range of predictions for onset, potentially differing by an order of magnitude or more \cite{example}.
+
+The first subjective assumption can be made objective by defining onset of a mode as the time when its size first grows.  The second and third can be made objective by assuming ignorance of the source of noise and considering all possible perturbations introduced at all possible times.  This corresponds to using generalized stability theory or non-normal analysis to find the maximum instantaneous growth rate and specifically equating onset with zero maximum growth \cite{FarrellIoannou,SlimRama10}.  However, this still requires a choice of measure for the `size' of perturbations.
+
+In emerging problems (Shmuel, Petia, Knobloch), people are often unsure about how to proceed.  They are aware that frozen-coefficient analysis is incorrect, but may not be aware of the applicability of generalized stability analysis, or there may not be a clear measure of size.
+
+Thus there is a need for a clear and objective definition of onset for unsteady problems, ideally one that is conceptually and computationally simple.  We develop such a definition and explore its consequence.  We follow generalized stability analysis, but in addition to assuming ignorance of the time and type of perturbation, we also assume ignorance with respect to the measure of size.  Thus we define onset to be the {\bf earliest possible time at which in any measure of size there exists a perturbation that grows}.  Equivalently, we define onset to be {\bf the earliest time at which there is no possible way of looking at the system and observing only decaying perturbations}.  In what follows, we show that this corresponds with frozen-coefficient analysis.  Thus we give a rigorous justification of frozen-coefficient analysis and the na\"ive application of steady methods to unsteady problems.  We then apply the approach to solutal convection in a porous medium as an illustrative example where non-normal stability analysis predicts a surprising result.
+
+We begin with a system of nonlinear partial differential equations representing a physical phenomenon and look for a `simple' base state.  We then consider nearby solutions by adding arbitrarily small noise and linearizing about the base state.  This yields a system of linear partial differential equations in space and time with potentially non-constant coefficients.  In practice, these partial differential equations are discretized in space using say a truncated Fourier series or a finite-difference approximation and we shall assume that they have been so \cite{FarrellIoannou}.  Thus we arrive at a linear system of ordinary differential equations
+\[
+{\text{d}\prt}/{\text{d} t} = \cL(t)\prt,
+\]
+where $\cL$ is a potentially complex and non-normal matrix and $\prt$ represents the discretized dependent variables, say the Fourier coefficients or point values of the dependent variables.  
+
+For a steady base state, $\cL$ is constant and standard tools of linear algebra can be applied so that
+\[
+\prt = \text{e}^{\cL t}\prt_0
+\]
+where $\prt_0$ is the initial condition.  At long times, this solution is dominated by !!!FIX THIS!!!
+\[
+\prt \propto \text{e}^{\sigma t}\prt_\sigma
+\]
+where $\sigma$ is the eigenvalue of $\cL$ with the largest real part and $\prt_\sigma$ is the component of $\prt_0$ in the direction of the corresponding eigenvector.  Thus the steady system is linearly stable when the largest real part of the eigenvalues is negative and linear unstable otherwise.
+
+For an unsteady base state, $\cL$ depends explicitly on time.  For a given measure of size or norm, which we denote $\norm{\cdot}$, we define the norm-dependent growth rate as the maximum possible instantaneous growth rate over all possible perturbations
+\begin{equation} \label{eq:ONE}
+\sigma_\norm{\cdot} (t) = \max_{\prt} \left. \frac{\text{d} \norm{\prt}/\text{d} t}{\norm{\prt}}\right|_t.
+\end{equation}
+We assume ignorance of the appropriate measure of size and define the growth rate as the smallest possible norm-dependent growth rate over all norms
+\[
+\sigma(t) = \min_\norm{\cdot} \sigma_\norm{\cdot}(t)
+\]
+equivalent to always finding a way of looking at the system and observing decay.  An alternative view is that the norm-dependent growth rate can always be made arbitrarily large even for the most benign $\cL$ with an appropriate choice of basis (supplemental material/footnote INCLUDE travelling wave?) and we ameliorate this dependence by minimizing over all norms.
+
+We can now proceed using two theorems from linear analysis \cite{BS}
+\begin{enumerate}
+\item $\rho(\cZ) \le \norm{\cZ}$ for an $\norm{\cdot}$ where $\rho(\cZ)$ is the largest magnitude of the eigenvalues of $\cZ$ and \label{thm1}
+\item for any $\epsilon>0$, there exists a $\norm{\cdot}$ such that $\norm{\cZ} \le \rho(\cZ) + \epsilon$. \label{thm2}
+\end{enumerate}
+Starting with \eqref{eq:ONE}, we find
+\begin{align*}
+\sigma_\norm{\cdot}(t) &= \lim_{\Delta t \to 0} \max_{\prt} \frac{\norm{\prt + \Delta \prt} - \norm{\prt}}{\norm{\prt}} \\
+&= \lim_{\Delta t \to 0} \max_{\prt} \frac{\norm{(\cI + \Delta t \cL)\prt} - \norm{\prt}}{\norm{\prt}} \\
+&= \lim_{\Delta t \to 0} \left( \norm{\cI + \Delta t \cL} - 1 \right).
+\end{align*}
+From \eqref{thm1}, this implies
+\begin{align*}
+\sigma_\norm{\cdot}(t) &\ge \lim_{\Delta t \to 0} \| \text{largest magnitude of eigenvalues of } \cI + \Delta t \cL\| - 1 \\
+&= \text{largest real part of eigenvalues of } \cL.
+\end{align*}
+From \eqref{thm2}, this implies
+\begin{align*}
+\sigma_\norm{\cdot}(t) &\le \lim_{\Delta t \to 0} \| \text{largest magnitude of eigenvalues of } \cI + \Delta t \cL\| - 1 + \epsilon \\
+&= \text{largest real part of eigenvalues of } \cL + \epsilon .
+\end{align*}
+Thus 
+\[
+\sigma(t) = \text{largest real part of eigenvalues of } \cL.
+\]
+This is precisely the frozen-coefficient growth rate, and in particular, onset by our definition occurs precisely when the largest real part of the eigenvalues of $\cL$ is zero.  WHAT WAS THE FALLACY?
+
+For steady base states, onset is the most useful result.  However, for unsteady base states, the onset threshold being surpassed does not guarantee that a macroscopic instability is observed: the appropriate mode may not be sufficiently amplified before the base state evolves and potentially stabilizes.  Therefore the possible amplification is a useful additional measure, the maximum possible amplification between an inception time $t_i$ and an observed time $t_o$ minimized over all norms.  We present results below, but reserve the theory to a separate publication.
+
+An illustrative example where generalized stability theory gives a surprising result is in solutal convection in porous media.  This problem has received significant attention recently because of its potential relevance to geological carbon dioxide storage underground in porous, brine-filled formations.  Then the supercritical \COtwo{} is introduced, it is less dense than the resident brine and rises until it reaches a cap rock where it spreads laterally and forms an almost horizontal layer.  The \COtwo{} is slightly soluble in brine and dissolves into the brine cohabiting its pore space and also gradually diffuses into the underlying brine.  It has the unusual property that it makes the brine denser and so there is the potential for convective overturning.  This is of practical interest because aqueous storage is deemed to be more secure and convection greatly enhances the rate at which \COtwo{} dissolves.  Thus there is potential interest in designing injection protocols that optimize this transition.  There has been much research in the case where the two-phase later is effectively impermeable (the brine remaining in the pore-space filled with supercritical \COtwo{} is effectively unable to flow) and a finite time for onset has been found (which could equate to hours to centuries).  However in reality, the two-phase layer can be permeable to brine flow and where the relative permeability (the ratio of the permeability to brine in the upper, two-phase layer to the permeability in the lower, brine-only layer) is greater than about $0.5$, generalized stability analysis results suggest that onset could be instantaneous for arbitrarily thick layers.  This would strongly suggest that creating a two-phase zone that is highly permeable to brine is highly desirable.  
+
+We readdress this problem using frozen-coefficient analysis and also calculate amplifications.  The full formulation is described elsewhere.
+
+\end{document}
