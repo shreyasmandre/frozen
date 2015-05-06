@@ -166,7 +166,7 @@ Expanding the right hand side of this equation component-wise shows that if each
 \subsection*{Time varying non-orthogonal eigenvectors: example one}
 If the eigenvectors are not orthogonal, and are varying with time, frozen coefficient can yield unreliable results as the following example demonstrates. Consider the combination of linear system with shearing rate $\cB$, but the direction of shear rotating constantly according to a matrix $\cR$.
 \begin{equation}
- \frac{d\bu}{dt} = \cR \cB \cR^{-1} \bu, \text{ where } \cB = \Bmat, \text{ and } \cR = \Rot.
+ \frac{d\bu}{dt} = \cR \cB \cR^{-1} \bu, \text{ where } \cB = \Bmat, \text{ and } \cR(\omega t) = \Rot.
 \end{equation}
 The frozen coefficient eigenvalues of $\cR \cB \cR^{-1}$ are the same as the eigenvalues of $\cB$, which are $-\sigma$ (we consider $\sigma>0$, so the eigenvalues are negative). 
 By itself, the matrix $\cB$ rotates the state vector in the clock-wise direction at the rate $\gamma/2$ and stretches it at the rate $-\sigma \pm \gamma/2$ along the $[1, 1]$ and $[1, -1]$ directions respectively. 
@@ -183,6 +183,8 @@ To demonstrate that this system can exhibit growth, transform $\bu = \cR \bv$ to
 The matrix $\cB - \cOmega$ has eigenvalues $\mu = -\sigma \pm \sqrt{\gamma \omega -\omega^2}$. The maximum possible value for the term in the square-root is $\gamma^2/4$ when $\omega = \gamma/2$. Thus $\mu$ has a positive real part if $\sigma < \gamma/2$. (For example, if $\gamma = 1$, $\omega = 1/2$ and $\sigma < 1/2$, then the real part of $\mu$ is positive.)  
 
 In other words, if the direction of shear rotates constantly to compensate for the rotation of the state vector it induces ($\omega = \gamma/2$), and the isotropic contraction rate is overcome by the stretching due to shear ($\sigma<\gamma/2$), the state vector can sustain the growth. Such stretching due to shear is also present if the rotation were absent, but the rate of stretching is only sustained because of the rotation aligning the rate of stretching with the state vector. 
+
+This examples illustrates how the rotation rate of the reference frame is a critical parameter in determining if eigenvalues of the linear operator with frozen coefficient yields results consistent with the our intuitive notion of stability.
 
 \subsection*{Time varying non-orthogonal eigenvectors: example two}
 This example demonstrates the possibility that the onset of instability may not be detected by frozen coefficient analysis.
@@ -206,11 +208,21 @@ A closed form solution for this system is $\bv(t) = \cA(t,t_0) \bv(t_0)$, where
  \end{bmatrix}
 .
 \end{equation}
-The propagator for $\bu$ can also be written to be $\bu(t) = \cR(t) \cA(t, t_0) \cR(t_0)$, which has eigenvalues identical to $\cA$. The spectral radius of either is
+The propagator for $\bu$ can also be written to be $\bu(t) = \cR(\omega t) \cA(t, t_0) \cR(\omega t_0)$, which has eigenvalues different from $\cA$. 
+Furthermore, the propagator for the solution $\bw = \cR(\omega_0 t) \bu$ in a frame rotating at the rate $\omega_0$ is $\tilde{\cA}(t,t_0) = \cR((\omega+\omega_0)t) \cA(t, t_0) \cR((\omega+\omega_0)t_0)\cR$.
+The spectral radius of $\cA$ is
 \begin{equation}
  \rho(\cA (t, t_0)) = \exp \left[ \dfrac{\alpha t^2}{2} - \dfrac{\alpha t_0^2}{2} + \sigma (t_0-t) \right]. 
 \end{equation}
-This spectral radius is greater than unity if $\dfrac{\alpha t^2}{2} - \dfrac{\alpha t_0^2}{2} + \sigma (t_0-t)>0$ for the smallest $t>t_0$. This condition first occurs for $t_0 = -\sigma/\alpha$, and $t=t_0^{+}$. Depending on the relative sizes and signs of $\sigma$ and $\alpha$, the onset can happen at an arbitrary time before or after the prediction made from naively freezing the coefficients of $\cB$.
+This spectral radius is greater than unity if $\dfrac{\alpha t^2}{2} - \dfrac{\alpha t_0^2}{2} + \sigma (t_0-t)>0$ for the smallest $t>t_0$. 
+This condition first occurs for $t_0 = -\sigma/\alpha$, and $t=t_0^{+}$. 
+Depending on the relative sizes and signs of $\sigma$ and $\alpha$, the onset can happen at an arbitrary time before or after the prediction made from naively freezing the coefficients of $\cB$.
+
+\begin{figure}
+\includegraphics{Figures/beta1/beta}
+\caption{Neutral curves for the spectral radius of the propagator in a frame rotating with rate $\omega_0$ for example two with $\alpha=2$, $\gamma=4$, $\omega=2$. The earliest onset of growth appears at $t_1=t_2=-\gamma/2\alpha=-1$. The envelope of these neutral curves corresponds to the neutral curve for $\omega_0 = \omega = 2$. }
+\end{figure}
+
 
 While these examples employ a degerate matrix $\cB$ to demonstrate the effect of a time-varying linear operator, the underlying qualitative explanation is generally applicable. For a non-degenerate case, see the example by Knboloch and Merryfield (19??).
 \end{document}
