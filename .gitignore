@@ -37,3 +37,4 @@
 *.kilepr
 */porous
 vecs
+*.o
