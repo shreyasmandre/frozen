@@ -1,0 +1,24 @@
+load('Amp_omega0_-0.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+hold on;
+load('Amp_omega0_0.500.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+load('Amp_omega0_1.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+load('Amp_omega0_1.500.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+load('Amp_omega0_2.500.mat');
+contour(T,T, log10(Amp'),[0 0], 'b-', 'Linewidth', 2);
+load('Amp_omega0_3.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'b-', 'Linewidth', 2);
+load('Amp_omega0_3.500.mat');
+contour(T,T, log10(Amp'),[0 0], 'b-', 'Linewidth', 2);
+load('Amp_omega0_4.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'b-', 'Linewidth', 2);
+load('Amp_omega0_-0.500.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+load('Amp_omega0_-1.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'r-', 'Linewidth', 2);
+load('Amp_omega0_2.000.mat');
+contour(T,T, log10(Amp'),[0 0], 'k-', 'Linewidth', 2);
+hold off
